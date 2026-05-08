@@ -3,6 +3,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Progress } from "@/components/ui/progress"
+import { Button } from "@/components/ui/button"
 import { Home, MapPin, Phone, Users, CheckCircle2 } from "lucide-react"
 
 export default function UserSheltersClient({ shelters }: { shelters: any[] }) {

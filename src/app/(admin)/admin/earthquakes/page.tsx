@@ -66,12 +66,7 @@ export default function EarthquakeRadar() {
 
   return (
     <div className="flex flex-col bg-background w-full h-screen overflow-hidden">
-      <header className="flex justify-between items-center px-6 border-b h-16 shrink-0">
-        <div className="flex items-center gap-2">
-          <Globe2 className="w-6 h-6 text-primary" />
-          <h1 className="font-bold text-xl tracking-tight">Earthquake Radar</h1>
-        </div>
-
+      <header className="flex justify-end items-center px-6 border-b h-16 shrink-0">
         <div className="flex items-center gap-6">
           <div className="hidden md:flex items-center gap-4">
             <div className="flex items-center gap-2">

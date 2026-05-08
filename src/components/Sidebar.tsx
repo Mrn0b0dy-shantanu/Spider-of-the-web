@@ -10,10 +10,12 @@ import {
   Users, 
   Building, 
   FileText,
-  Globe
+  Globe,
+  LogOut
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { signOut } from "@/app/actions/auth";
 
 const navItems = [
   { name: "Dashboard", href: "/", icon: LayoutDashboard },
@@ -57,6 +59,14 @@ export function Sidebar() {
               </Link>
             ))}
           </nav>
+        </div>
+        <div className="mt-auto p-4 border-t">
+          <form action={signOut}>
+            <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-muted hover:text-primary">
+              <LogOut className="h-4 w-4" />
+              Log out
+            </button>
+          </form>
         </div>
       </div>
     </div>
