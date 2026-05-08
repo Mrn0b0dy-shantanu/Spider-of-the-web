@@ -76,3 +76,32 @@ button,
 a {
   cursor: pointer;
 }
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Landing page pulse animation */
+@keyframes landing-pulse {
+  0%, 100% { opacity: 0.4; }
+  50% { opacity: 1; }
+}
+
+.landing-pulse {
+  animation: landing-pulse 2s ease-in-out infinite;
+}
+
+/* Custom scrollbar for landing */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #07070c;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.1);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255,255,255,0.2);
+}

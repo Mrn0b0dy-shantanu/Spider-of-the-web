@@ -114,10 +114,10 @@ function FeatureCard({ feature, index }: { feature: typeof features[0]; index: n
               {feature.tag}
             </span>
           </div>
-          <h3 className="text-base font-semibold text-white mb-1.5 group-hover:text-white/95 transition-colors">
+          <h3 className="mb-1.5 font-semibold text-white group-hover:text-white/95 text-base transition-colors">
             {feature.title}
           </h3>
-          <p className="text-sm text-zinc-500 leading-relaxed group-hover:text-zinc-400 transition-colors">
+          <p className="text-zinc-500 group-hover:text-zinc-400 text-sm leading-relaxed transition-colors">
             {feature.description}
           </p>
         </div>
@@ -135,33 +135,33 @@ export default function FeaturesSection() {
       <div className="absolute inset-0 bg-[#07070c]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_50%_0%,rgba(120,20,120,0.08),transparent)]" />
 
-      <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section header */}
+      <div ref={ref} className="z-10 relative mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-red-500/10 border border-red-500/20 text-red-400 text-xs font-semibold uppercase tracking-wider mb-6">
+          <div className="inline-flex items-center gap-2 bg-red-500/10 mb-6 px-3 py-1 border border-red-500/20 rounded-full font-semibold text-red-400 text-xs uppercase tracking-wider">
             <Radio className="w-3 h-3" />
             Platform Capabilities
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+          <h2 className="font-black text-white text-3xl sm:text-4xl lg:text-5xl tracking-tight">
             Built for{" "}
-            <span className="bg-gradient-to-r from-red-400 to-red-600 bg-clip-text text-transparent">
+            <span className="bg-clip-text bg-linear-to-r from-red-400 to-red-600 text-transparent">
               Mission-Critical
             </span>{" "}
             Operations
           </h2>
-          <p className="mt-4 text-lg text-zinc-500 max-w-2xl mx-auto">
+          <p className="mx-auto mt-4 max-w-2xl text-zinc-500 text-lg">
             A comprehensive disaster management ecosystem designed to coordinate
             every aspect of emergency response — from first alert to full recovery.
           </p>
         </motion.div>
 
-        {/* Feature cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+
+        <div className="gap-4 grid grid-cols-1 md:grid-cols-2">
           {features.map((feature, i) => (
             <FeatureCard key={feature.title} feature={feature} index={i} />
           ))}

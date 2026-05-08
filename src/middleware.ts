@@ -57,7 +57,7 @@ export async function middleware(request: NextRequest) {
     const role = profile?.role
 
 
-    if (url.pathname.startsWith("/login") || url.pathname.startsWith("/signup") || url.pathname === "/") {
+    if (url.pathname.startsWith("/login") || url.pathname.startsWith("/signup")) {
       if (role === "admin") {
         url.pathname = "/dashboard"
         return NextResponse.redirect(url)
