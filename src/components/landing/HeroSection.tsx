@@ -134,7 +134,7 @@ export default function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.3 }}
             className="inline-flex items-center gap-2 bg-white/[0.04] backdrop-blur-sm mb-8 px-4 py-1.5 border border-white/[0.08] rounded-full"
           >
             <span className="relative flex w-2 h-2">
