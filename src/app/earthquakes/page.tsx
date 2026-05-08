@@ -15,14 +15,14 @@ import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/co
 // Dynamically import Map component to avoid SSR issues with Leaflet
 const MapWithNoSSR = dynamic(() => import("@/components/Map"), {
   ssr: false,
-  loading: () => <div className="w-full h-full flex items-center justify-center bg-muted/50 rounded-lg animate-pulse"><Activity className="h-8 w-8 text-muted-foreground animate-spin" /></div>
+  loading: () => <div className="flex justify-center items-center bg-muted/50 rounded-lg w-full h-full animate-pulse"><Activity className="w-8 h-8 text-muted-foreground animate-spin" /></div>
 });
 
 export default function EarthquakeRadar() {
   const [range, setRange] = useState("day");
   const [minMagnitude, setMinMagnitude] = useState([2.5]);
   const [selectedEq, setSelectedEq] = useState<EarthquakeFeature | null>(null);
-  const [userLocation, setUserLocation] = useState<{lat: number, lng: number, radiusKm?: number} | undefined>();
+  const [userLocation, setUserLocation] = useState<{ lat: number, lng: number, radiusKm?: number } | undefined>();
   const [isLocating, setIsLocating] = useState(false);
 
   const { earthquakes, isLoading, isError } = useEarthquakes(range, minMagnitude[0], userLocation);
@@ -65,17 +65,17 @@ export default function EarthquakeRadar() {
   }, []); // Run once on mount
 
   return (
-    <div className="flex h-screen w-full flex-col overflow-hidden bg-background">
-      <header className="flex h-16 flex-shrink-0 items-center justify-between border-b px-6">
+    <div className="flex flex-col bg-background w-full h-screen overflow-hidden">
+      <header className="flex justify-between items-center px-6 border-b h-16 shrink-0">
         <div className="flex items-center gap-2">
-          <Globe2 className="h-6 w-6 text-primary" />
-          <h1 className="text-xl font-bold tracking-tight">Earthquake Radar</h1>
+          <Globe2 className="w-6 h-6 text-primary" />
+          <h1 className="font-bold text-xl tracking-tight">Earthquake Radar</h1>
         </div>
-        
+
         <div className="flex items-center gap-6">
           <div className="hidden md:flex items-center gap-4">
             <div className="flex items-center gap-2">
-              <Label htmlFor="range-select" className="text-sm font-medium">Time Range:</Label>
+              <Label htmlFor="range-select" className="font-medium text-sm">Time Range:</Label>
               <Select value={range} onValueChange={setRange}>
                 <SelectTrigger id="range-select" className="w-[140px]">
                   <SelectValue placeholder="Select Range" />
@@ -87,26 +87,26 @@ export default function EarthquakeRadar() {
                 </SelectContent>
               </Select>
             </div>
-            
+
             <div className="flex items-center gap-3 w-[150px]">
-              <Label className="text-sm font-medium whitespace-nowrap">Min Mag: {minMagnitude[0]}</Label>
-              <Slider 
-                value={minMagnitude} 
-                onValueChange={setMinMagnitude} 
-                max={9} 
-                step={0.5} 
+              <Label className="font-medium text-sm whitespace-nowrap">Min Mag: {minMagnitude[0]}</Label>
+              <Slider
+                value={minMagnitude}
+                onValueChange={setMinMagnitude}
+                max={9}
+                step={0.5}
                 className="flex-1"
               />
             </div>
-            
-            <Button 
-              variant={userLocation ? "default" : "outline"} 
-              size="sm" 
+
+            <Button
+              variant={userLocation ? "default" : "outline"}
+              size="sm"
               onClick={handleLocateMe}
               disabled={isLocating}
               className="ml-2"
             >
-              <MapPin className="h-4 w-4 mr-2" />
+              <MapPin className="mr-2 w-4 h-4" />
               {isLocating ? "Locating..." : userLocation ? "Global" : "Near Me"}
             </Button>
           </div>
@@ -115,9 +115,9 @@ export default function EarthquakeRadar() {
 
       <main className="flex flex-1 overflow-hidden">
         {/* Mobile Filter Controls (Visible only on small screens) */}
-        <div className="md:hidden flex flex-col gap-4 p-4 border-b absolute z-10 bg-background/95 backdrop-blur w-full">
+        <div className="md:hidden z-10 absolute flex flex-col gap-4 bg-background/95 backdrop-blur p-4 border-b w-full">
           <div className="flex items-center gap-2">
-             <Select value={range} onValueChange={setRange}>
+            <Select value={range} onValueChange={setRange}>
               <SelectTrigger className="flex-1">
                 <SelectValue placeholder="Select Range" />
               </SelectTrigger>
@@ -129,62 +129,62 @@ export default function EarthquakeRadar() {
             </Select>
           </div>
           <div className="flex items-center gap-3">
-             <Label className="text-sm font-medium whitespace-nowrap">Min Mag: {minMagnitude[0]}</Label>
-             <Slider 
-               value={minMagnitude} 
-               onValueChange={setMinMagnitude} 
-               max={9} 
-               step={0.5} 
-               className="flex-1"
-             />
+            <Label className="font-medium text-sm whitespace-nowrap">Min Mag: {minMagnitude[0]}</Label>
+            <Slider
+              value={minMagnitude}
+              onValueChange={setMinMagnitude}
+              max={9}
+              step={0.5}
+              className="flex-1"
+            />
           </div>
-          <Button 
-            variant={userLocation ? "default" : "outline"} 
-            size="sm" 
+          <Button
+            variant={userLocation ? "default" : "outline"}
+            size="sm"
             onClick={handleLocateMe}
             disabled={isLocating}
             className="w-full"
           >
-            <MapPin className="h-4 w-4 mr-2" />
+            <MapPin className="mr-2 w-4 h-4" />
             {isLocating ? "Locating..." : userLocation ? "Switch to Global" : "Near Me"}
           </Button>
         </div>
 
         {/* Map Area (70%) */}
-        <div className="relative flex-1 md:w-[70%] h-full p-0 z-0">
+        <div className="z-0 relative flex-1 p-0 md:w-[70%] h-full">
           {isError && (
-            <div className="absolute inset-0 flex items-center justify-center bg-background/80 z-10">
-              <div className="text-center text-destructive">
+            <div className="z-10 absolute inset-0 flex justify-center items-center bg-background/80">
+              <div className="text-destructive text-center">
                 <p>Failed to load earthquake data.</p>
                 <Button variant="outline" className="mt-4" onClick={() => window.location.reload()}>Retry</Button>
               </div>
             </div>
           )}
-            <MapWithNoSSR 
-            earthquakes={earthquakes} 
+          <MapWithNoSSR
+            earthquakes={earthquakes}
             selectedEarthquake={selectedEq}
             onSelectEarthquake={setSelectedEq}
             userLocation={userLocation}
           />
 
           {/* Mobile Floating Action Button for Feed */}
-          <div className="md:hidden absolute bottom-6 right-6 z-10">
+          <div className="md:hidden right-6 bottom-6 z-10 absolute">
             <Sheet>
               <SheetTrigger asChild>
-                <Button size="icon" className="h-14 w-14 rounded-full shadow-lg" aria-label="Open Earthquake Feed">
-                  <List className="h-6 w-6" />
+                <Button size="icon" className="shadow-lg rounded-full w-14 h-14" aria-label="Open Earthquake Feed">
+                  <List className="w-6 h-6" />
                 </Button>
               </SheetTrigger>
-              <SheetContent side="bottom" className="h-[80vh] flex flex-col p-0 rounded-t-xl">
+              <SheetContent side="bottom" className="flex flex-col p-0 rounded-t-xl h-[80vh]">
                 <SheetHeader className="p-4 border-b text-left">
                   <SheetTitle className="flex items-center gap-2">
-                    <Activity className="h-5 w-5 text-primary" />
+                    <Activity className="w-5 h-5 text-primary" />
                     Latest Earthquakes ({earthquakes.length})
                   </SheetTitle>
                 </SheetHeader>
                 <div className="flex-1 overflow-hidden">
-                  <EarthquakeList 
-                    earthquakes={earthquakes} 
+                  <EarthquakeList
+                    earthquakes={earthquakes}
                     onSelectEarthquake={(eq) => {
                       setSelectedEq(eq);
                       // In a real app we might want to auto-close or leave open
@@ -200,17 +200,17 @@ export default function EarthquakeRadar() {
         </div>
 
         {/* Sidebar Feed (30%) */}
-        <div className="hidden md:flex w-[30%] h-full flex-col border-l bg-card">
-          <div className="p-4 border-b bg-muted/20">
-            <h2 className="font-semibold flex items-center gap-2">
-              <Activity className="h-4 w-4" />
+        <div className="hidden md:flex flex-col bg-card border-l w-[30%] h-full">
+          <div className="bg-muted/20 p-4 border-b">
+            <h2 className="flex items-center gap-2 font-semibold">
+              <Activity className="w-4 h-4" />
               Latest Earthquakes ({earthquakes.length})
             </h2>
-            <p className="text-xs text-muted-foreground mt-1">Live updates every 60s</p>
+            <p className="mt-1 text-muted-foreground text-xs">Live updates every 60s</p>
           </div>
           <div className="flex-1 overflow-hidden">
-            <EarthquakeList 
-              earthquakes={earthquakes} 
+            <EarthquakeList
+              earthquakes={earthquakes}
               onSelectEarthquake={setSelectedEq}
               selectedEarthquakeId={selectedEq?.id}
               isLoading={isLoading}
