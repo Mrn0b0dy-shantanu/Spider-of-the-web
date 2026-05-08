@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Phone, AlertTriangle, BookOpen, ShieldCheck, MapPin, ExternalLink } from "lucide-react"
 
-export const metadata = { title: "Emergency Resources | NDC Relief" }
+export const metadata = { title: "Emergency Resources | AntiQuake" }
 
 const typeColors: Record<string, string> = {
   police: "bg-blue-500",
@@ -26,33 +26,33 @@ export default async function UserResourcesPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Emergency Resources</h1>
-        <p className="text-muted-foreground mt-1">Direct access to emergency hotlines and safety guides.</p>
+        <h1 className="font-bold text-3xl tracking-tight">Emergency Resources</h1>
+        <p className="mt-1 text-muted-foreground">Direct access to emergency hotlines and safety guides.</p>
       </div>
 
-      <div className="grid gap-6 lg:grid-cols-3">
+      <div className="gap-6 grid lg:grid-cols-3">
         {/* Hotlines */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="space-y-6 lg:col-span-2">
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <Phone className="h-5 w-5 text-primary" />
+                <Phone className="w-5 h-5 text-primary" />
                 Emergency Hotlines
               </CardTitle>
               <CardDescription>Immediate assistance available 24/7</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid gap-4 sm:grid-cols-2">
+              <div className="gap-4 grid sm:grid-cols-2">
                 {contacts.map((contact: any) => (
-                  <div key={contact.id} className="flex flex-col p-4 rounded-xl border bg-card hover:shadow-md transition-shadow">
-                    <div className="flex items-center justify-between mb-2">
+                  <div key={contact.id} className="flex flex-col bg-card hover:shadow-md p-4 border rounded-xl transition-shadow">
+                    <div className="flex justify-between items-center mb-2">
                       <Badge className={typeColors[contact.type] || "bg-primary"}>
                         {contact.type}
                       </Badge>
-                      <span className="text-lg font-black text-primary">{contact.phone}</span>
+                      <span className="font-black text-primary text-lg">{contact.phone}</span>
                     </div>
                     <h4 className="font-bold">{contact.name}</h4>
-                    <p className="text-xs text-muted-foreground mt-1 flex-1">{contact.description}</p>
+                    <p className="flex-1 mt-1 text-muted-foreground text-xs">{contact.description}</p>
                     <Button variant="outline" size="sm" className="mt-4 w-full" asChild>
                       <a href={`tel:${contact.phone}`}>Call {contact.phone}</a>
                     </Button>
@@ -65,34 +65,34 @@ export default async function UserResourcesPage() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
-                <ShieldCheck className="h-5 w-5 text-primary" />
+                <ShieldCheck className="w-5 h-5 text-primary" />
                 Safety & Preparedness Guides
               </CardTitle>
             </CardHeader>
-            <CardContent className="grid gap-4 sm:grid-cols-2">
-              <div className="p-4 rounded-lg border bg-muted/30 group hover:bg-muted/50 cursor-pointer">
-                <h4 className="font-bold flex items-center justify-between">
-                  Flood Safety <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+            <CardContent className="gap-4 grid sm:grid-cols-2">
+              <div className="group bg-muted/30 hover:bg-muted/50 p-4 border rounded-lg cursor-pointer">
+                <h4 className="flex justify-between items-center font-bold">
+                  Flood Safety <ExternalLink className="opacity-0 group-hover:opacity-100 w-4 h-4 transition-opacity" />
                 </h4>
-                <p className="text-xs text-muted-foreground mt-1">What to do before, during, and after a flood event.</p>
+                <p className="mt-1 text-muted-foreground text-xs">What to do before, during, and after a flood event.</p>
               </div>
-              <div className="p-4 rounded-lg border bg-muted/30 group hover:bg-muted/50 cursor-pointer">
-                <h4 className="font-bold flex items-center justify-between">
-                  Earthquake Protocol <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="group bg-muted/30 hover:bg-muted/50 p-4 border rounded-lg cursor-pointer">
+                <h4 className="flex justify-between items-center font-bold">
+                  Earthquake Protocol <ExternalLink className="opacity-0 group-hover:opacity-100 w-4 h-4 transition-opacity" />
                 </h4>
-                <p className="text-xs text-muted-foreground mt-1">Drop, Cover, and Hold On. Protecting yourself indoors.</p>
+                <p className="mt-1 text-muted-foreground text-xs">Drop, Cover, and Hold On. Protecting yourself indoors.</p>
               </div>
-              <div className="p-4 rounded-lg border bg-muted/30 group hover:bg-muted/50 cursor-pointer">
-                <h4 className="font-bold flex items-center justify-between">
-                  First Aid Basics <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="group bg-muted/30 hover:bg-muted/50 p-4 border rounded-lg cursor-pointer">
+                <h4 className="flex justify-between items-center font-bold">
+                  First Aid Basics <ExternalLink className="opacity-0 group-hover:opacity-100 w-4 h-4 transition-opacity" />
                 </h4>
-                <p className="text-xs text-muted-foreground mt-1">Basic first aid procedures for common injuries.</p>
+                <p className="mt-1 text-muted-foreground text-xs">Basic first aid procedures for common injuries.</p>
               </div>
-              <div className="p-4 rounded-lg border bg-muted/30 group hover:bg-muted/50 cursor-pointer">
-                <h4 className="font-bold flex items-center justify-between">
-                  Emergency Kits <ExternalLink className="h-4 w-4 opacity-0 group-hover:opacity-100 transition-opacity" />
+              <div className="group bg-muted/30 hover:bg-muted/50 p-4 border rounded-lg cursor-pointer">
+                <h4 className="flex justify-between items-center font-bold">
+                  Emergency Kits <ExternalLink className="opacity-0 group-hover:opacity-100 w-4 h-4 transition-opacity" />
                 </h4>
-                <p className="text-xs text-muted-foreground mt-1">Essential items to keep in your grab-and-go bag.</p>
+                <p className="mt-1 text-muted-foreground text-xs">Essential items to keep in your grab-and-go bag.</p>
               </div>
             </CardContent>
           </Card>
@@ -100,21 +100,21 @@ export default async function UserResourcesPage() {
 
         {/* Announcements sidebar */}
         <div className="space-y-6">
-          <Card className="border-primary/20 shadow-lg">
+          <Card className="shadow-lg border-primary/20">
             <CardHeader className="bg-primary/5">
-              <CardTitle className="text-lg flex items-center gap-2">
-                <AlertTriangle className="h-5 w-5 text-primary" />
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <AlertTriangle className="w-5 h-5 text-primary" />
                 Active Alerts
               </CardTitle>
             </CardHeader>
-            <CardContent className="pt-6 space-y-4">
+            <CardContent className="space-y-4 pt-6">
               {announcements.length === 0 ? (
-                <p className="text-sm text-muted-foreground italic">No active alerts at this time.</p>
+                <p className="text-muted-foreground text-sm italic">No active alerts at this time.</p>
               ) : (
                 announcements.map((ann: any) => (
                   <div key={ann.id} className={`p-4 rounded-lg border-l-4 ${ann.priority === 'critical' ? 'border-destructive bg-destructive/5' : 'border-primary bg-primary/5'}`}>
                     <h5 className="font-bold text-sm">{ann.title}</h5>
-                    <p className="text-xs text-muted-foreground mt-1">{ann.message}</p>
+                    <p className="mt-1 text-muted-foreground text-xs">{ann.message}</p>
                   </div>
                 ))
               )}
@@ -123,25 +123,25 @@ export default async function UserResourcesPage() {
 
           <Card>
             <CardHeader>
-              <CardTitle className="text-lg flex items-center gap-2">
-                <MapPin className="h-5 w-5 text-muted-foreground" />
+              <CardTitle className="flex items-center gap-2 text-lg">
+                <MapPin className="w-5 h-5 text-muted-foreground" />
                 Supply Centers
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="text-sm">
                 <p className="font-medium">Dhaka Central Hub</p>
-                <p className="text-xs text-muted-foreground italic">Farmgate Area, Dhaka</p>
+                <p className="text-muted-foreground text-xs italic">Farmgate Area, Dhaka</p>
               </div>
               <Separator />
               <div className="text-sm">
                 <p className="font-medium">Sylhet Zonal Hub</p>
-                <p className="text-xs text-muted-foreground italic">Circuit House Road, Sylhet</p>
+                <p className="text-muted-foreground text-xs italic">Circuit House Road, Sylhet</p>
               </div>
               <Separator />
               <div className="text-sm">
                 <p className="font-medium">Chittagong Relief Point</p>
-                <p className="text-xs text-muted-foreground italic">Agrabad, Chittagong</p>
+                <p className="text-muted-foreground text-xs italic">Agrabad, Chittagong</p>
               </div>
             </CardContent>
           </Card>

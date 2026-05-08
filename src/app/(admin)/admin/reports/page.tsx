@@ -1,7 +1,7 @@
 import { getRequestsByStatus } from "@/app/actions/admin"
 import AdminReportsClient from "./ReportsClient"
 
-export const metadata = { title: "Reports | NDC Admin" }
+export const metadata = { title: "Reports | AntiQuake Admin" }
 
 export default async function AdminReportsPage() {
   const { statusCounts, urgencyCounts } = await getRequestsByStatus()

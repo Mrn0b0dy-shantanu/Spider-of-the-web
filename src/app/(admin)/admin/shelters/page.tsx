@@ -1,7 +1,7 @@
 import { getShelters } from "@/app/actions/shelters"
 import AdminSheltersClient from "./SheltersClient"
 
-export const metadata = { title: "Shelters | NDC Admin" }
+export const metadata = { title: "Shelters | AntiQuake Admin" }
 
 export default async function AdminSheltersPage() {
   const shelters = await getShelters()

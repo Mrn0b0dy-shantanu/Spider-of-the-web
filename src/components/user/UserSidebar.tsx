@@ -38,7 +38,7 @@ export function UserSidebar({ className }: { className?: string }) {
       <div className="flex items-center px-6 border-b h-16">
         <Link href="/user/dashboard" className="flex items-center gap-2 font-bold text-xl tracking-tight">
           <ShieldAlert className="w-7 h-7 text-primary" />
-          <span>NDC <span className="font-medium text-muted-foreground">Relief</span></span>
+          <span>AntiQuake</span>
         </Link>
       </div>
 

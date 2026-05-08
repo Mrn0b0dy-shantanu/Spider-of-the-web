@@ -19,7 +19,7 @@ export default function SignupPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    
+
     startTransition(async () => {
       const res = await signUp(formData)
       if (res?.success) {
@@ -32,19 +32,19 @@ export default function SignupPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
-      <div className="w-full max-w-md space-y-8">
-        <div className="flex flex-col items-center text-center space-y-2">
-          <div className="p-3 bg-primary rounded-2xl shadow-xl shadow-primary/20">
-            <ShieldAlert className="h-8 w-8 text-primary-foreground" />
+    <div className="flex justify-center items-center bg-muted/30 p-4 min-h-screen">
+      <div className="space-y-8 w-full max-w-md">
+        <div className="flex flex-col items-center space-y-2 text-center">
+          <div className="bg-primary shadow-primary/20 shadow-xl p-3 rounded-2xl">
+            <ShieldAlert className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h1 className="text-3xl font-black tracking-tight">NDC ReliefOps</h1>
+          <h1 className="font-black text-3xl tracking-tight">AntiQuake</h1>
           <p className="text-muted-foreground">Register for emergency relief services</p>
         </div>
 
-        <Card className="border-none shadow-2xl">
+        <Card className="shadow-2xl border-none">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
+            <CardTitle className="font-bold text-2xl">Create Account</CardTitle>
             <CardDescription>Join the national relief coordination network</CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
@@ -79,12 +79,12 @@ export default function SignupPage() {
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
               <Button type="submit" className="w-full h-11" disabled={isPending}>
-                {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <UserPlus className="mr-2 h-4 w-4" />}
+                {isPending ? <Loader2 className="mr-2 w-4 h-4 animate-spin" /> : <UserPlus className="mr-2 w-4 h-4" />}
                 Create Account
               </Button>
-              <div className="text-center text-sm text-muted-foreground">
+              <div className="text-muted-foreground text-sm text-center">
                 Already have an account?{" "}
-                <Link href="/login" className="text-primary font-bold hover:underline">Login</Link>
+                <Link href="/login" className="font-bold text-primary hover:underline">Login</Link>
               </div>
             </CardFooter>
           </form>

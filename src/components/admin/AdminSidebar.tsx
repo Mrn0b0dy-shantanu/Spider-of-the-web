@@ -43,7 +43,7 @@ export function AdminSidebar({ className }: { className?: string }) {
       <div className="flex items-center px-6 border-b h-16">
         <Link href="/admin/dashboard" className="flex items-center gap-2 font-bold text-primary text-xl tracking-tight">
           <ShieldAlert className="w-7 h-7 text-destructive" />
-          <span>NDC <span className="font-medium text-muted-foreground">Relief</span></span>
+          <span>AntiQuake</span>
         </Link>
       </div>
 
@@ -92,7 +92,7 @@ export function AdminSidebar({ className }: { className?: string }) {
         </div>
       </div>
 
-      <div className="p-4 border-t flex flex-col gap-4">
+      <div className="flex flex-col gap-4 p-4 border-t">
         <div className="bg-destructive/10 p-3 border border-destructive/20 rounded-lg">
           <div className="flex items-center gap-2 mb-1 text-destructive">
             <ShieldAlert className="w-4 h-4" />
@@ -103,8 +103,8 @@ export function AdminSidebar({ className }: { className?: string }) {
           </p>
         </div>
         <form action={signOut}>
-          <button className="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium text-muted-foreground transition-all hover:bg-muted hover:text-primary">
-            <LogOut className="h-4 w-4" />
+          <button className="flex items-center gap-3 hover:bg-muted px-3 py-2 rounded-lg w-full font-medium text-muted-foreground hover:text-primary text-sm transition-all">
+            <LogOut className="w-4 h-4" />
             Log out
           </button>
         </form>

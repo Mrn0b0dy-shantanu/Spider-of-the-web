@@ -4,14 +4,14 @@ import { StatusBadge } from "@/components/shared/StatusBadge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { 
-  AlertTriangle, Activity, Box, Users, Home, FileText, 
-  TrendingUp, Clock, ChevronRight 
+import {
+  AlertTriangle, Activity, Box, Users, Home, FileText,
+  TrendingUp, Clock, ChevronRight
 } from "lucide-react"
 import Link from "next/link"
 import { formatDate } from "@/lib/utils"
 
-export const metadata = { title: "Command Center | NDC ReliefOps Admin" }
+export const metadata = { title: "Command Center | AntiQuake Admin" }
 
 const urgencyColors: Record<string, string> = {
   critical: "bg-red-500/15 text-red-500 border-red-500/20",
@@ -29,12 +29,12 @@ export default async function AdminDashboard() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Command Center</h1>
-        <p className="text-muted-foreground mt-1">Real-time disaster management operations overview.</p>
+        <h1 className="font-bold text-3xl tracking-tight">Command Center</h1>
+        <p className="mt-1 text-muted-foreground">Real-time disaster management operations overview.</p>
       </div>
 
       {/* KPI Grid */}
-      <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+      <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Pending Requests"
           value={stats.pendingRequests}
@@ -94,31 +94,31 @@ export default async function AdminDashboard() {
 
       {/* Recent Requests */}
       <Card>
-        <CardHeader className="flex flex-row items-center justify-between">
+        <CardHeader className="flex flex-row justify-between items-center">
           <div>
             <CardTitle>Recent Disaster Requests</CardTitle>
             <CardDescription>Latest submissions from civilians requiring review</CardDescription>
           </div>
           <Button asChild variant="outline" size="sm">
             <Link href="/admin/requests">
-              View All <ChevronRight className="ml-1 h-4 w-4" />
+              View All <ChevronRight className="ml-1 w-4 h-4" />
             </Link>
           </Button>
         </CardHeader>
         <CardContent>
           {recentRequests.length === 0 ? (
-            <div className="text-center py-8 text-muted-foreground">
-              <FileText className="h-10 w-10 mx-auto mb-3 opacity-40" />
+            <div className="py-8 text-muted-foreground text-center">
+              <FileText className="opacity-40 mx-auto mb-3 w-10 h-10" />
               <p>No requests yet. They will appear here when submitted.</p>
             </div>
           ) : (
             <div className="space-y-3">
               {recentRequests.map((req: any) => (
-                <div key={req.id} className="flex items-center justify-between p-3 rounded-lg border bg-muted/30 hover:bg-muted/50 transition-colors">
+                <div key={req.id} className="flex justify-between items-center bg-muted/30 hover:bg-muted/50 p-3 border rounded-lg transition-colors">
                   <div className="flex items-center gap-3 min-w-0">
                     <div className="min-w-0">
-                      <p className="text-sm font-medium truncate">{req.title}</p>
-                      <p className="text-xs text-muted-foreground">
+                      <p className="font-medium text-sm truncate">{req.title}</p>
+                      <p className="text-muted-foreground text-xs">
                         {req.profiles?.full_name || "Unknown"} · {req.categories?.name || "General"} · {formatDate(req.created_at)}
                       </p>
                     </div>

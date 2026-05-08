@@ -16,7 +16,7 @@ export default function LoginPage() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     const formData = new FormData(e.currentTarget)
-    
+
     startTransition(async () => {
       const res = await signIn(formData)
       if (res?.error) {
@@ -26,19 +26,19 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
-      <div className="w-full max-w-md space-y-8">
-        <div className="flex flex-col items-center text-center space-y-2">
-          <div className="p-3 bg-primary rounded-2xl shadow-xl shadow-primary/20">
-            <ShieldAlert className="h-8 w-8 text-primary-foreground" />
+    <div className="flex justify-center items-center bg-muted/30 p-4 min-h-screen">
+      <div className="space-y-8 w-full max-w-md">
+        <div className="flex flex-col items-center space-y-2 text-center">
+          <div className="bg-primary shadow-primary/20 shadow-xl p-3 rounded-2xl">
+            <ShieldAlert className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h1 className="text-3xl font-black tracking-tight">NDC ReliefOps</h1>
+          <h1 className="font-black text-3xl tracking-tight">AntiQuake</h1>
           <p className="text-muted-foreground">National Disaster Coordination & Relief Platform</p>
         </div>
 
-        <Card className="border-none shadow-2xl">
+        <Card className="shadow-2xl border-none">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-2xl font-bold">Login</CardTitle>
+            <CardTitle className="font-bold text-2xl">Login</CardTitle>
             <CardDescription>Enter your credentials to access your dashboard</CardDescription>
           </CardHeader>
           <form onSubmit={handleSubmit}>
@@ -48,28 +48,28 @@ export default function LoginPage() {
                 <Input id="email" name="email" type="email" placeholder="name@example.com" required />
               </div>
               <div className="space-y-2">
-                <div className="flex items-center justify-between">
+                <div className="flex justify-between items-center">
                   <Label htmlFor="password">Password</Label>
-                  <Link href="#" className="text-xs text-primary hover:underline">Forgot password?</Link>
+                  <Link href="#" className="text-primary text-xs hover:underline">Forgot password?</Link>
                 </div>
                 <Input id="password" name="password" type="password" required />
               </div>
             </CardContent>
             <CardFooter className="flex flex-col space-y-4">
               <Button type="submit" className="w-full h-11" disabled={isPending}>
-                {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <ArrowRight className="mr-2 h-4 w-4" />}
+                {isPending ? <Loader2 className="mr-2 w-4 h-4 animate-spin" /> : <ArrowRight className="mr-2 w-4 h-4" />}
                 Sign In
               </Button>
-              <div className="text-center text-sm text-muted-foreground">
+              <div className="text-muted-foreground text-sm text-center">
                 Don't have an account?{" "}
-                <Link href="/signup" className="text-primary font-bold hover:underline">Sign up</Link>
+                <Link href="/signup" className="font-bold text-primary hover:underline">Sign up</Link>
               </div>
             </CardFooter>
           </form>
         </Card>
 
         <div className="text-center">
-          <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-bold">
+          <p className="font-bold text-[10px] text-muted-foreground uppercase tracking-widest">
             Authorized Personnel & Citizen Access Only
           </p>
         </div>

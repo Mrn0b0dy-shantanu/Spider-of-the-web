@@ -70,11 +70,11 @@ INSERT INTO public.inventory (name, category, quantity, unit, location, status) 
 
 INSERT INTO public.personnel (name, role, organization, location, status) VALUES
 ('Dr. Ahmed Hossain', 'Medical Officer', 'Red Crescent', 'Sylhet Zone A', 'Deployed'),
-('Sarah Khan', 'Logistics Coordinator', 'NDC Relief', 'Dhaka HQ', 'Available'),
+('Sarah Khan', 'Logistics Coordinator', 'AntiQuake', 'Dhaka HQ', 'Available'),
 ('Team Alpha (S&R)', 'Search & Rescue', 'Fire Service', 'Dhaka Sector 4', 'Deployed');
 
 INSERT INTO public.organizations (name, type, personnel_count, contact_email) VALUES
-('NDC ReliefOps', 'Government', 1500, 'contact@ndc.gov.bd'),
+('AntiQuake', 'Government', 1500, 'contact@ndc.gov.bd'),
 ('Red Crescent Society', 'NGO', 3500, 'info@redcrescent.org'),
 ('UNICEF Bangladesh', 'International', 800, 'dhaka@unicef.org');
 

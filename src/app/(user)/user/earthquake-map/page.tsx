@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback } from "react";
+import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import { useEarthquakes } from "@/hooks/useEarthquakes";
 import { EarthquakeFeature } from "@/lib/api/usgs";
@@ -25,7 +26,17 @@ export default function EarthquakeRadar() {
   const [userLocation, setUserLocation] = useState<{ lat: number, lng: number, radiusKm?: number } | undefined>();
   const [isLocating, setIsLocating] = useState(false);
 
+  const searchParams = useSearchParams();
+  const eqId = searchParams.get("id");
+
   const { earthquakes, isLoading, isError } = useEarthquakes(range, minMagnitude[0], userLocation);
+
+  useEffect(() => {
+    if (eqId && earthquakes.length > 0) {
+      const eq = earthquakes.find(e => e.id === eqId);
+      if (eq) setSelectedEq(eq);
+    }
+  }, [eqId, earthquakes]);
 
   const handleLocateMe = useCallback(() => {
     if (userLocation) {
@@ -48,8 +59,8 @@ export default function EarthquakeRadar() {
   }, [userLocation]);
 
   useEffect(() => {
-    // Auto-locate on initial load if location isn't set yet
-    if (!userLocation && !isLocating) {
+    // Auto-locate on initial load if location isn't set yet and NO specific earthquake ID is targeted
+    if (!userLocation && !isLocating && !eqId) {
       setIsLocating(true);
       navigator.geolocation.getCurrentPosition(
         (pos) => {

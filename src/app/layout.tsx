@@ -7,7 +7,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NDC - Disaster Management",
+  title: "AntiQuake - Disaster Management",
   description: "Modern SaaS Platform for Disaster Management and Response",
 };
 

@@ -109,3 +109,19 @@ export async function getEmergencyContacts() {
     .order("display_order")
   return data || []
 }
+
+export async function upsertIncident(incident: any) {
+  const supabase = await createClient()
+  const { data, error } = await supabase
+    .from("incidents")
+    .upsert(incident, { onConflict: 'id' })
+    .select()
+
+  if (error) {
+    console.error("Error upserting incident:", error)
+    return { error: error.message }
+  }
+
+  revalidatePath("/admin/incidents")
+  return { success: true, data }
+}

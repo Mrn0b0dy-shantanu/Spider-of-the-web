@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Shield, Bell, Lock, Database } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
-export const metadata = { title: "Settings | NDC Admin" }
+export const metadata = { title: "Settings | AntiQuake Admin" }
 
 export default function AdminSettingsPage() {
   return (

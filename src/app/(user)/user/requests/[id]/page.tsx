@@ -8,7 +8,7 @@ import { ArrowLeft, Clock, MapPin, User, Phone, Users, MessageSquare } from "luc
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-export const metadata = { title: "Request Details | NDC Relief" }
+export const metadata = { title: "Request Details | AntiQuake" }
 
 const urgencyColors: Record<string, string> = {
   critical: "bg-red-500/15 text-red-500 border-red-500/20",
@@ -25,15 +25,15 @@ export default async function UserRequestDetailPage({ params }: { params: { id: 
   }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-6">
-      <Link href="/user/requests" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors mb-4">
-        <ArrowLeft className="h-4 w-4" /> Back to My Requests
+    <div className="space-y-6 mx-auto max-w-4xl">
+      <Link href="/user/requests" className="flex items-center gap-2 mb-4 text-muted-foreground hover:text-primary text-sm transition-colors">
+        <ArrowLeft className="w-4 h-4" /> Back to My Requests
       </Link>
 
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="flex md:flex-row flex-col justify-between md:items-center gap-4">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">{request.title}</h1>
-          <p className="text-muted-foreground mt-1 flex items-center gap-2">
+          <h1 className="font-bold text-3xl tracking-tight">{request.title}</h1>
+          <p className="flex items-center gap-2 mt-1 text-muted-foreground">
             <Badge variant="outline">{request.categories?.name}</Badge>
             <span>Submitted {formatDate(request.created_at)}</span>
           </p>
@@ -42,55 +42,55 @@ export default async function UserRequestDetailPage({ params }: { params: { id: 
           <Badge variant="outline" className={`capitalize py-1 px-3 ${urgencyColors[request.urgency]}`}>
             {request.urgency} Urgency
           </Badge>
-          <StatusBadge status={request.status} className="py-1 px-3" />
+          <StatusBadge status={request.status} className="px-3 py-1" />
         </div>
       </div>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div className="gap-6 grid md:grid-cols-3">
         <Card className="md:col-span-2">
           <CardHeader>
             <CardTitle>Request Details</CardTitle>
           </CardHeader>
           <CardContent className="space-y-6">
-            <div className="bg-muted/50 rounded-lg p-4">
+            <div className="bg-muted/50 p-4 rounded-lg">
               <p className="text-sm leading-relaxed whitespace-pre-wrap">{request.description || "No detailed description provided."}</p>
             </div>
 
-            <div className="grid grid-cols-2 gap-6">
+            <div className="gap-6 grid grid-cols-2">
               <div className="space-y-1">
-                <p className="text-xs font-bold uppercase text-muted-foreground tracking-wider">Location</p>
+                <p className="font-bold text-muted-foreground text-xs uppercase tracking-wider">Location</p>
                 <div className="flex items-center gap-2 text-sm">
-                  <MapPin className="h-4 w-4 text-primary" />
+                  <MapPin className="w-4 h-4 text-primary" />
                   {request.location}
                 </div>
               </div>
               <div className="space-y-1">
-                <p className="text-xs font-bold uppercase text-muted-foreground tracking-wider">People Affected</p>
+                <p className="font-bold text-muted-foreground text-xs uppercase tracking-wider">People Affected</p>
                 <div className="flex items-center gap-2 text-sm">
-                  <Users className="h-4 w-4 text-primary" />
+                  <Users className="w-4 h-4 text-primary" />
                   {request.people_affected} people
                 </div>
               </div>
               <div className="space-y-1">
-                <p className="text-xs font-bold uppercase text-muted-foreground tracking-wider">Contact Person</p>
+                <p className="font-bold text-muted-foreground text-xs uppercase tracking-wider">Contact Person</p>
                 <div className="flex items-center gap-2 text-sm">
-                  <User className="h-4 w-4 text-primary" />
+                  <User className="w-4 h-4 text-primary" />
                   {request.contact_name || "Self"}
                 </div>
               </div>
               <div className="space-y-1">
-                <p className="text-xs font-bold uppercase text-muted-foreground tracking-wider">Phone</p>
+                <p className="font-bold text-muted-foreground text-xs uppercase tracking-wider">Phone</p>
                 <div className="flex items-center gap-2 text-sm">
-                  <Phone className="h-4 w-4 text-primary" />
+                  <Phone className="w-4 h-4 text-primary" />
                   {request.contact_phone}
                 </div>
               </div>
             </div>
 
             {request.admin_notes && (
-              <div className="mt-6 p-4 rounded-lg border border-primary/20 bg-primary/5">
-                <p className="text-xs font-bold uppercase text-primary tracking-wider mb-2 flex items-center gap-2">
-                  <MessageSquare className="h-3.5 w-3.5" /> Admin Response
+              <div className="bg-primary/5 mt-6 p-4 border border-primary/20 rounded-lg">
+                <p className="flex items-center gap-2 mb-2 font-bold text-primary text-xs uppercase tracking-wider">
+                  <MessageSquare className="w-3.5 h-3.5" /> Admin Response
                 </p>
                 <p className="text-sm italic">"{request.admin_notes}"</p>
               </div>
@@ -104,21 +104,21 @@ export default async function UserRequestDetailPage({ params }: { params: { id: 
             <CardDescription>History of status changes</CardDescription>
           </CardHeader>
           <CardContent>
-            <div className="relative pl-6 space-y-6 before:absolute before:left-2 before:top-2 before:bottom-2 before:w-px before:bg-muted">
+            <div className="before:top-2 before:bottom-2 before:left-2 before:absolute relative space-y-6 before:bg-muted pl-6 before:w-px">
               {request.request_updates?.length === 0 ? (
                 <div className="relative">
-                  <div className="absolute -left-[1.85rem] top-1 h-3 w-3 rounded-full bg-primary ring-4 ring-background" />
-                  <p className="text-sm font-medium">Request Submitted</p>
-                  <p className="text-xs text-muted-foreground">{formatDate(request.created_at)}</p>
+                  <div className="top-1 -left-[1.85rem] absolute bg-primary rounded-full ring-4 ring-background w-3 h-3" />
+                  <p className="font-medium text-sm">Request Submitted</p>
+                  <p className="text-muted-foreground text-xs">{formatDate(request.created_at)}</p>
                 </div>
               ) : (
                 request.request_updates.map((update: any) => (
                   <div key={update.id} className="relative">
-                    <div className="absolute -left-[1.85rem] top-1 h-3 w-3 rounded-full bg-primary ring-4 ring-background" />
-                    <p className="text-sm font-medium">
-                      Status updated to <span className="capitalize text-primary">{update.new_status.replace("_", " ")}</span>
+                    <div className="top-1 -left-[1.85rem] absolute bg-primary rounded-full ring-4 ring-background w-3 h-3" />
+                    <p className="font-medium text-sm">
+                      Status updated to <span className="text-primary capitalize">{update.new_status.replace("_", " ")}</span>
                     </p>
-                    {update.message && <p className="text-xs text-muted-foreground mt-1 mb-1 italic">"{update.message}"</p>}
+                    {update.message && <p className="mt-1 mb-1 text-muted-foreground text-xs italic">"{update.message}"</p>}
                     <p className="text-[10px] text-muted-foreground">{formatDate(update.created_at)}</p>
                   </div>
                 ))

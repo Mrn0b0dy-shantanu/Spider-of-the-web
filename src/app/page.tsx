@@ -14,7 +14,7 @@ export default async function Home() {
       .select("role")
       .eq("id", user.id)
       .single()
-    
+
     if (profile?.role === "admin") {
       redirect("/admin/dashboard")
     } else {
@@ -24,13 +24,13 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col min-h-screen">
-      <header className="px-4 lg:px-6 h-16 flex items-center border-b backdrop-blur-sm bg-background/80 sticky top-0 z-50">
-        <Link className="flex items-center justify-center gap-2 font-bold text-xl" href="/">
-          <ShieldAlert className="h-6 w-6 text-primary" />
-          <span>NDC <span className="text-muted-foreground font-medium">ReliefOps</span></span>
+      <header className="top-0 z-50 sticky flex items-center bg-background/80 backdrop-blur-sm px-4 lg:px-6 border-b h-16">
+        <Link className="flex justify-center items-center gap-2 font-bold text-xl" href="/">
+          <ShieldAlert className="w-6 h-6 text-primary" />
+          <span>Anti<span className="font-medium text-muted-foreground">Quake</span></span>
         </Link>
-        <nav className="ml-auto flex gap-4 sm:gap-6">
-          <Link className="text-sm font-medium hover:text-primary transition-colors mt-2" href="/login">
+        <nav className="flex gap-4 sm:gap-6 ml-auto">
+          <Link className="mt-2 font-medium hover:text-primary text-sm transition-colors" href="/login">
             Login
           </Link>
           <Button asChild size="sm">
@@ -39,26 +39,26 @@ export default async function Home() {
         </nav>
       </header>
       <main className="flex-1">
-        <section className="w-full py-12 md:py-24 lg:py-32 xl:py-48 bg-gradient-to-b from-background via-muted/20 to-background">
-          <div className="container px-4 md:px-6">
+        <section className="bg-gradient-to-b from-background via-muted/20 to-background py-12 md:py-24 lg:py-32 xl:py-48 w-full">
+          <div className="px-4 md:px-6 container">
             <div className="flex flex-col items-center space-y-4 text-center">
-              <div className="inline-flex items-center rounded-full border bg-muted/50 px-3 py-1 text-sm font-medium mb-4">
-                <span className="flex h-2 w-2 rounded-full bg-primary mr-2" />
+              <div className="inline-flex items-center bg-muted/50 mb-4 px-3 py-1 border rounded-full font-medium text-sm">
+                <span className="flex bg-primary mr-2 rounded-full w-2 h-2" />
                 Next-Gen Disaster Management Platform
               </div>
-              <h1 className="text-3xl font-black tracking-tighter sm:text-4xl md:text-5xl lg:text-7xl max-w-3xl">
+              <h1 className="max-w-3xl font-black text-3xl sm:text-4xl md:text-5xl lg:text-7xl tracking-tighter">
                 Coordinate. Respond. <span className="text-primary">Save Lives.</span>
               </h1>
-              <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl lg:text-2xl mt-4">
+              <p className="mx-auto mt-4 max-w-[700px] text-muted-foreground md:text-xl lg:text-2xl">
                 The modern SaaS platform for national disaster management. Real-time coordination between government agencies and citizens.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                <Button asChild size="lg" className="h-12 px-8 text-lg shadow-xl shadow-primary/20">
+              <div className="flex sm:flex-row flex-col gap-4 mt-8">
+                <Button asChild size="lg" className="shadow-primary/20 shadow-xl px-8 h-12 text-lg">
                   <Link href="/signup">
-                    Register Now <ArrowRight className="ml-2 h-5 w-5" />
+                    Register Now <ArrowRight className="ml-2 w-5 h-5" />
                   </Link>
                 </Button>
-                <Button asChild variant="outline" size="lg" className="h-12 px-8 text-lg">
+                <Button asChild variant="outline" size="lg" className="px-8 h-12 text-lg">
                   <Link href="/login">Portal Access</Link>
                 </Button>
               </div>
@@ -66,37 +66,37 @@ export default async function Home() {
           </div>
         </section>
 
-        <section className="w-full py-12 md:py-24 lg:py-32 bg-muted/30">
-          <div className="container px-4 md:px-6">
-            <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-              <div className="flex flex-col items-center space-y-2 rounded-2xl border bg-background p-8 shadow-sm">
-                <div className="p-3 bg-blue-500/10 rounded-xl mb-2">
-                  <Activity className="h-8 w-8 text-blue-500" />
+        <section className="bg-muted/30 py-12 md:py-24 lg:py-32 w-full">
+          <div className="px-4 md:px-6 container">
+            <div className="gap-8 grid sm:grid-cols-2 lg:grid-cols-3">
+              <div className="flex flex-col items-center space-y-2 bg-background shadow-sm p-8 border rounded-2xl">
+                <div className="bg-blue-500/10 mb-2 p-3 rounded-xl">
+                  <Activity className="w-8 h-8 text-blue-500" />
                 </div>
-                <h3 className="text-xl font-bold">Real-time Ops</h3>
+                <h3 className="font-bold text-xl">Real-time Ops</h3>
                 <p className="text-muted-foreground text-center">Live monitoring of incidents and emergency requests from across the country.</p>
               </div>
-              <div className="flex flex-col items-center space-y-2 rounded-2xl border bg-background p-8 shadow-sm">
-                <div className="p-3 bg-green-500/10 rounded-xl mb-2">
-                  <Users className="h-8 w-8 text-green-500" />
+              <div className="flex flex-col items-center space-y-2 bg-background shadow-sm p-8 border rounded-2xl">
+                <div className="bg-green-500/10 mb-2 p-3 rounded-xl">
+                  <Users className="w-8 h-8 text-green-500" />
                 </div>
-                <h3 className="text-xl font-bold">Role-Based Access</h3>
+                <h3 className="font-bold text-xl">Role-Based Access</h3>
                 <p className="text-muted-foreground text-center">Separate, optimized experiences for command center personnel and affected citizens.</p>
               </div>
-              <div className="flex flex-col items-center space-y-2 rounded-2xl border bg-background p-8 shadow-sm">
-                <div className="p-3 bg-red-500/10 rounded-xl mb-2">
-                  <Heart className="h-8 w-8 text-red-500" />
+              <div className="flex flex-col items-center space-y-2 bg-background shadow-sm p-8 border rounded-2xl">
+                <div className="bg-red-500/10 mb-2 p-3 rounded-xl">
+                  <Heart className="w-8 h-8 text-red-500" />
                 </div>
-                <h3 className="text-xl font-bold">Relief Coordination</h3>
+                <h3 className="font-bold text-xl">Relief Coordination</h3>
                 <p className="text-muted-foreground text-center">Efficient supply chain management and shelter occupancy tracking for rapid response.</p>
               </div>
             </div>
           </div>
         </section>
       </main>
-      <footer className="flex flex-col gap-2 sm:flex-row py-6 w-full shrink-0 items-center px-4 md:px-6 border-t">
-        <p className="text-xs text-muted-foreground">© 2024 NDC ReliefOps. All rights reserved.</p>
-        <nav className="sm:ml-auto flex gap-4 sm:gap-6">
+      <footer className="flex sm:flex-row flex-col items-center gap-2 px-4 md:px-6 py-6 border-t w-full shrink-0">
+        <p className="text-muted-foreground text-xs">© 2024 AntiQuake. All rights reserved.</p>
+        <nav className="flex gap-4 sm:gap-6 sm:ml-auto">
           <Link className="text-xs hover:underline underline-offset-4" href="#">
             Terms of Service
           </Link>
