@@ -1,10 +1,16 @@
-import { getRequestsByStatus } from "@/app/actions/admin"
+import { getRequestsByStatus, getOperationalTrends } from "@/app/actions/admin"
 import AdminReportsClient from "./ReportsClient"
 
 export const metadata = { title: "Reports | AntiQuake Admin" }
 
 export default async function AdminReportsPage() {
-  const { statusCounts, urgencyCounts } = await getRequestsByStatus()
+  const [
+    { statusCounts, urgencyCounts },
+    trendData
+  ] = await Promise.all([
+    getRequestsByStatus(),
+    getOperationalTrends()
+  ])
 
   const statusData = Object.entries(statusCounts).map(([name, value]) => ({
     name: name.replace("_", " ").toUpperCase(),
@@ -16,5 +22,11 @@ export default async function AdminReportsPage() {
     value
   }))
 
-  return <AdminReportsClient statusData={statusData} urgencyData={urgencyData} />
+  return (
+    <AdminReportsClient 
+      statusData={statusData} 
+      urgencyData={urgencyData} 
+      trendData={trendData}
+    />
+  )
 }

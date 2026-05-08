@@ -8,8 +8,10 @@ import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { upsertIncident } from "@/app/actions/admin"
-import { useState, useTransition } from "react"
+import { useState, useTransition, useEffect } from "react"
 import { toast } from "sonner"
+import { createClient } from "@/lib/supabase/client"
+import { useRouter } from "next/navigation"
 
 const severityColors: Record<string, string> = {
   minor: "bg-blue-500/15 text-blue-500",
@@ -21,10 +23,31 @@ const severityColors: Record<string, string> = {
 export default function AdminIncidentsClient({ incidents: initialIncidents }: { incidents: any[] }) {
   const [incidents, setIncidents] = useState(initialIncidents)
   const [isPending, startTransition] = useTransition()
+  const router = useRouter()
+  const supabase = createClient()
+
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('admin-incidents-realtime')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'incidents' }, () => {
+        router.refresh()
+      })
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [supabase, router])
+
+
+  useEffect(() => {
+    setIncidents(initialIncidents)
+  }, [initialIncidents])
 
   const handleStatusChange = async (incident: any, newStatus: string) => {
     const updatedIncident = { ...incident, status: newStatus }
-    
+
     startTransition(async () => {
       const res = await upsertIncident(updatedIncident)
       if (res.success) {
@@ -38,18 +61,23 @@ export default function AdminIncidentsClient({ incidents: initialIncidents }: { 
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex justify-between items-center">
         <div>
-          <h1 className="text-3xl font-bold tracking-tight">Active Incidents</h1>
-          <p className="text-muted-foreground mt-1">Real-time monitoring of disaster events from USGS.</p>
+          <h1 className="font-bold text-3xl tracking-tight">Active Incidents</h1>
+          <p className="mt-1 text-muted-foreground">Real-time monitoring of disaster events from USGS.</p>
         </div>
-        <Badge variant="outline" className="px-3 py-1 gap-2 bg-primary/5 border-primary/20">
-          <Activity className="h-3.5 w-3.5 text-primary animate-pulse" />
-          USGS Live Feed
+        <Badge variant="outline" className="gap-2 bg-primary/5 px-3 py-1 border-primary/20">
+          <div className="flex flex-col items-end">
+            <div className="flex items-center gap-2">
+              <Activity className="w-3.5 h-3.5 text-primary animate-pulse" />
+              <span className="font-semibold">USGS Live Feed</span>
+            </div>
+            <span className="opacity-70 text-[8px] uppercase tracking-tighter">Source: USGS FDSN API</span>
+          </div>
         </Badge>
       </div>
 
-      <Card className="border-primary/10 shadow-sm overflow-hidden">
+      <Card className="shadow-sm border-primary/10 overflow-hidden">
         <CardContent className="p-0">
           <Table>
             <TableHeader className="bg-muted/50">
@@ -67,38 +95,38 @@ export default function AdminIncidentsClient({ incidents: initialIncidents }: { 
                 <TableRow key={incident.id} className="group hover:bg-muted/30 transition-colors">
                   <TableCell className="font-medium">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 rounded-full bg-primary/10">
-                        <Activity className="h-4 w-4 text-primary" />
+                      <div className="bg-primary/10 p-2 rounded-full">
+                        <Activity className="w-4 h-4 text-primary" />
                       </div>
-                      <span className="truncate max-w-[200px]" title={incident.name}>{incident.name}</span>
+                      <span className="max-w-[200px] truncate" title={incident.name}>{incident.name}</span>
                     </div>
                   </TableCell>
                   <TableCell>
                     <Badge variant="secondary" className="font-normal">{incident.type}</Badge>
                   </TableCell>
-                  <TableCell className="text-sm text-muted-foreground">{incident.location}</TableCell>
+                  <TableCell className="text-muted-foreground text-sm">{incident.location}</TableCell>
                   <TableCell>
                     <Badge variant="outline" className={`capitalize border-none ${severityColors[incident.severity]}`}>
                       {incident.severity}
                     </Badge>
                   </TableCell>
                   <TableCell className="text-right">
-                    <Link 
+                    <Link
                       href={`/admin/earthquakes?id=${incident.id}`}
-                      className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+                      className="inline-flex items-center gap-1.5 font-medium text-primary text-sm hover:underline"
                     >
-                      <MapIcon className="h-3.5 w-3.5" />
+                      <MapIcon className="w-3.5 h-3.5" />
                       View on Map
-                      <ExternalLink className="h-3 w-3 opacity-0 group-hover:opacity-100 transition-opacity" />
+                      <ExternalLink className="opacity-0 group-hover:opacity-100 w-3 h-3 transition-opacity" />
                     </Link>
                   </TableCell>
                   <TableCell>
-                    <Select 
-                      defaultValue={incident.status} 
+                    <Select
+                      defaultValue={incident.status}
                       onValueChange={(val) => handleStatusChange(incident, val)}
                       disabled={isPending}
                     >
-                      <SelectTrigger className="h-8 w-full">
+                      <SelectTrigger className="w-full h-8">
                         <SelectValue placeholder="Set Status" />
                       </SelectTrigger>
                       <SelectContent>
@@ -114,7 +142,7 @@ export default function AdminIncidentsClient({ incidents: initialIncidents }: { 
               ))}
               {incidents.length === 0 && (
                 <TableRow>
-                  <TableCell colSpan={6} className="h-32 text-center text-muted-foreground">
+                  <TableCell colSpan={6} className="h-32 text-muted-foreground text-center">
                     No active incidents detected.
                   </TableCell>
                 </TableRow>

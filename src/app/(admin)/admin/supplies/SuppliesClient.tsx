@@ -166,7 +166,9 @@ export default function AdminSuppliesClient({ supplies }: { supplies: any[] }) {
                         className="h-8 w-8 text-destructive"
                         onClick={() => {
                           if (confirm("Delete this item?")) {
-                            startTransition(() => deleteSupply(item.id))
+                            startTransition(async () => {
+                              await deleteSupply(item.id)
+                            })
                           }
                         }}
                         disabled={isPending}

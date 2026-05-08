@@ -44,7 +44,7 @@ export interface DisasterRequest {
   people_affected: number;
   created_at: string;
   updated_at: string;
-  // Joined fields
+
   profiles?: Profile;
   categories?: Category;
 }
@@ -57,7 +57,7 @@ export interface RequestUpdate {
   message?: string;
   updated_by?: string;
   created_at: string;
-  // Joined fields
+
   profiles?: Profile;
 }
 

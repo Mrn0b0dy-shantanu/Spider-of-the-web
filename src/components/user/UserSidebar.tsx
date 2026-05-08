@@ -14,7 +14,9 @@ import {
   ChevronRight,
   Heart,
   LogOut,
-  Map
+  Map,
+  Newspaper,
+  Users
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { signOut } from "@/app/actions/auth"
@@ -27,6 +29,8 @@ const userNavItems = [
   { name: "My Requests", href: "/user/requests", icon: FileText },
   { name: "Emergency Resources", href: "/user/resources", icon: BookOpen },
   { name: "Notifications", href: "/user/notifications", icon: Bell },
+  { name: "Verified News", href: "/user/news", icon: Newspaper },
+  { name: "Aid Network", href: "/user/community", icon: Users },
   { name: "Profile", href: "/user/profile", icon: User },
 ]
 

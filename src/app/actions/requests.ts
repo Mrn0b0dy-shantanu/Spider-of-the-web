@@ -58,7 +58,7 @@ export async function updateRequestStatus(
 
   if (error) return { error: error.message }
 
-  // Insert update record
+
   await supabase.from("request_updates").insert({
     request_id: id,
     old_status: existing?.status,
@@ -67,7 +67,7 @@ export async function updateRequestStatus(
     updated_by: user.id,
   })
 
-  // Notify the user
+
   if (existing?.user_id) {
     const statusMessages: Record<string, string> = {
       approved: "Your request has been approved. Relief is on the way.",
@@ -97,7 +97,7 @@ export async function getAllRequests(filters?: {
   const supabase = await createClient()
   let query = supabase
     .from("disaster_requests")
-    .select("*, profiles(full_name, phone), categories(name, icon)")
+    .select("*, profiles!user_id(full_name, phone), categories!category_id(name, icon)")
     .order("created_at", { ascending: false })
 
   if (filters?.status && filters.status !== "all") {
@@ -108,7 +108,20 @@ export async function getAllRequests(filters?: {
   }
 
   const { data, error } = await query
-  if (error) return []
+  if (error) {
+    console.error("Error in getAllRequests (joined):", error)
+
+    const { data: simpleData, error: simpleError } = await supabase
+      .from("disaster_requests")
+      .select("*")
+      .order("created_at", { ascending: false })
+
+    if (simpleError) {
+      console.error("Error in getAllRequests (simple):", simpleError)
+      return []
+    }
+    return simpleData || []
+  }
   return data || []
 }
 

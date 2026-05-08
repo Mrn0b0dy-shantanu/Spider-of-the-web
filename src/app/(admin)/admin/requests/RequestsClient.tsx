@@ -1,6 +1,8 @@
 "use client"
 
-import { useState, useTransition } from "react"
+import { useState, useTransition, useEffect } from "react"
+import { useRouter } from "next/navigation"
+import { createClient } from "@/lib/supabase/client"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
@@ -27,6 +29,22 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
   const [selectedRequest, setSelectedRequest] = useState<any>(null)
   const [adminNotes, setAdminNotes] = useState("")
   const [isPending, startTransition] = useTransition()
+  const router = useRouter()
+  const supabase = createClient()
+
+
+  useEffect(() => {
+    const channel = supabase
+      .channel('admin-requests-realtime')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'disaster_requests' }, () => {
+        router.refresh()
+      })
+      .subscribe()
+
+    return () => {
+      supabase.removeChannel(channel)
+    }
+  }, [supabase, router])
 
   const filtered = activeTab === "all" ? requests : requests.filter(r => r.status === activeTab)
 
@@ -43,8 +61,8 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold tracking-tight">Disaster Requests</h1>
-        <p className="text-muted-foreground mt-1">Review and manage civilian emergency requests.</p>
+        <h1 className="font-bold text-3xl tracking-tight">Disaster Requests</h1>
+        <p className="mt-1 text-muted-foreground">Review and manage civilian emergency requests.</p>
       </div>
 
       <Tabs value={activeTab} onValueChange={setActiveTab}>
@@ -78,7 +96,7 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
                   <TableBody>
                     {filtered.length === 0 ? (
                       <TableRow>
-                        <TableCell colSpan={7} className="text-center py-10 text-muted-foreground">
+                        <TableCell colSpan={7} className="py-10 text-muted-foreground text-center">
                           No requests found
                         </TableCell>
                       </TableRow>
@@ -88,7 +106,7 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
                           <TableCell>
                             <div>
                               <p className="font-medium text-sm">{req.title}</p>
-                              <p className="text-xs text-muted-foreground">{req.location || "No location"}</p>
+                              <p className="text-muted-foreground text-xs">{req.location || "No location"}</p>
                             </div>
                           </TableCell>
                           <TableCell className="text-sm">{req.profiles?.full_name || "Unknown"}</TableCell>
@@ -99,12 +117,12 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
                             </Badge>
                           </TableCell>
                           <TableCell><StatusBadge status={req.status} /></TableCell>
-                          <TableCell className="text-xs text-muted-foreground">{formatDate(req.created_at)}</TableCell>
+                          <TableCell className="text-muted-foreground text-xs">{formatDate(req.created_at)}</TableCell>
                           <TableCell className="text-right">
                             <Dialog>
                               <DialogTrigger asChild>
                                 <Button variant="ghost" size="sm" onClick={() => setSelectedRequest(req)}>
-                                  <Eye className="h-4 w-4 mr-1" /> Review
+                                  <Eye className="mr-1 w-4 h-4" /> Review
                                 </Button>
                               </DialogTrigger>
                               <DialogContent className="max-w-2xl">
@@ -115,7 +133,7 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
                                   </DialogDescription>
                                 </DialogHeader>
                                 <div className="space-y-4">
-                                  <div className="grid grid-cols-2 gap-4 text-sm">
+                                  <div className="gap-4 grid grid-cols-2 text-sm">
                                     <div><span className="text-muted-foreground">Category:</span> {req.categories?.name}</div>
                                     <div><span className="text-muted-foreground">Urgency:</span>
                                       <Badge variant="outline" className={`ml-1 capitalize text-xs ${urgencyColors[req.urgency]}`}>{req.urgency}</Badge>
@@ -126,8 +144,8 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
                                     <div><span className="text-muted-foreground">Phone:</span> {req.contact_phone || "N/A"}</div>
                                   </div>
                                   <div>
-                                    <p className="text-sm font-medium mb-1">Description</p>
-                                    <p className="text-sm text-muted-foreground bg-muted/50 rounded-md p-3">{req.description || "No description provided."}</p>
+                                    <p className="mb-1 font-medium text-sm">Description</p>
+                                    <p className="bg-muted/50 p-3 rounded-md text-muted-foreground text-sm">{req.description || "No description provided."}</p>
                                   </div>
                                   <div>
                                     <Label htmlFor="notes">Admin Notes / Response Message</Label>
@@ -141,7 +159,7 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
                                     />
                                   </div>
                                 </div>
-                                <DialogFooter className="flex gap-2 sm:justify-start">
+                                <DialogFooter className="flex sm:justify-start gap-2">
                                   {req.status === "pending" && (
                                     <>
                                       <Button
@@ -149,7 +167,7 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
                                         disabled={isPending}
                                         className="bg-green-600 hover:bg-green-700"
                                       >
-                                        {isPending ? <Loader2 className="h-4 w-4 animate-spin mr-2" /> : <Check className="h-4 w-4 mr-2" />}
+                                        {isPending ? <Loader2 className="mr-2 w-4 h-4 animate-spin" /> : <Check className="mr-2 w-4 h-4" />}
                                         Approve
                                       </Button>
                                       <Button
@@ -157,7 +175,7 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
                                         onClick={() => handleStatusUpdate(req.id, "rejected")}
                                         disabled={isPending}
                                       >
-                                        <X className="h-4 w-4 mr-2" /> Reject
+                                        <X className="mr-2 w-4 h-4" /> Reject
                                       </Button>
                                     </>
                                   )}
@@ -166,7 +184,7 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
                                       onClick={() => handleStatusUpdate(req.id, "in_progress")}
                                       disabled={isPending}
                                     >
-                                      <Clock className="h-4 w-4 mr-2" /> Mark In Progress
+                                      <Clock className="mr-2 w-4 h-4" /> Mark In Progress
                                     </Button>
                                   )}
                                   {req.status === "in_progress" && (
@@ -175,7 +193,7 @@ export default function AdminRequestsClient({ requests }: { requests: any[] }) {
                                       disabled={isPending}
                                       className="bg-green-600 hover:bg-green-700"
                                     >
-                                      <Check className="h-4 w-4 mr-2" /> Mark Fulfilled
+                                      <Check className="mr-2 w-4 h-4" /> Mark Fulfilled
                                     </Button>
                                   )}
                                 </DialogFooter>

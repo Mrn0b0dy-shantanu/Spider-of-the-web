@@ -1,6 +1,9 @@
 import { getUserRequests } from "@/app/actions/requests"
 import { getAnnouncements } from "@/app/actions/notifications"
 import { getShelters } from "@/app/actions/shelters"
+import { getUnreadNotificationsCount } from "@/app/actions/notifications"
+import { getEmergencyContacts } from "@/app/actions/admin"
+import { RealtimeRefresh } from "@/components/shared/RealtimeRefresh"
 import { StatsCard } from "@/components/shared/StatsCard"
 import { StatusBadge } from "@/components/shared/StatusBadge"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
@@ -16,10 +19,12 @@ import { formatDate } from "@/lib/utils"
 export const metadata = { title: "User Dashboard | AntiQuake" }
 
 export default async function UserDashboard() {
-  const [requests, announcements, shelters] = await Promise.all([
+  const [requests, announcements, shelters, unreadCount, contacts] = await Promise.all([
     getUserRequests(),
     getAnnouncements(),
     getShelters(),
+    getUnreadNotificationsCount(),
+    getEmergencyContacts(),
   ])
 
   const pendingCount = requests.filter(r => r.status === "pending").length
@@ -27,6 +32,7 @@ export default async function UserDashboard() {
 
   return (
     <div className="space-y-8">
+      <RealtimeRefresh tables={["notifications", "announcements", "disaster_requests", "shelters"]} />
       <div className="flex sm:flex-row flex-col justify-between sm:items-center gap-4">
         <div>
           <h1 className="font-bold text-3xl tracking-tight">Welcome to AntiQuake</h1>
@@ -39,7 +45,7 @@ export default async function UserDashboard() {
         </Button>
       </div>
 
-      {/* Summary Stats */}
+
       <div className="gap-4 grid md:grid-cols-3">
         <StatsCard
           title="My Active Requests"
@@ -57,7 +63,7 @@ export default async function UserDashboard() {
         />
         <StatsCard
           title="Unread Notifications"
-          value={0} // Placeholder for now
+          value={unreadCount}
           description="Updates on your requests"
           icon={Bell}
           iconClassName="text-blue-500"
@@ -65,9 +71,9 @@ export default async function UserDashboard() {
       </div>
 
       <div className="gap-6 grid lg:grid-cols-7">
-        {/* Left Column: Announcements & Requests */}
+
         <div className="space-y-6 lg:col-span-4">
-          {/* Announcements */}
+
           <Card className="bg-primary/5 border-primary/20">
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
@@ -95,7 +101,7 @@ export default async function UserDashboard() {
             </CardContent>
           </Card>
 
-          {/* My Recent Requests */}
+
           <Card>
             <CardHeader className="flex flex-row justify-between items-center">
               <div>
@@ -128,7 +134,7 @@ export default async function UserDashboard() {
           </Card>
         </div>
 
-        {/* Right Column: Nearby Shelters & Resources */}
+
         <div className="space-y-6 lg:col-span-3">
           <Card>
             <CardHeader>
@@ -173,29 +179,56 @@ export default async function UserDashboard() {
                 <div className="flex items-center gap-3">
                   <Phone className="w-6 h-6" />
                   <div>
-                    <p className="opacity-80 font-bold text-xs uppercase tracking-widest">National Emergency</p>
-                    <p className="font-black text-2xl">999</p>
+                    <p className="opacity-80 font-bold text-xs uppercase tracking-widest">
+                      {contacts[0]?.name || "National Emergency"}
+                    </p>
+                    <p className="font-black text-2xl">{contacts[0]?.phone || "999"}</p>
                   </div>
                 </div>
                 <Button variant="secondary" size="sm" asChild>
-                  <a href="tel:999">Call Now</a>
+                  <a href={`tel:${contacts[0]?.phone || "999"}`}>Call Now</a>
                 </Button>
               </div>
               <div className="space-y-2">
                 <p className="font-medium text-muted-foreground text-xs uppercase tracking-wider">Quick Contacts</p>
                 <div className="gap-2 grid grid-cols-2">
-                  <Button variant="outline" size="sm" className="justify-start gap-2" asChild>
-                    <a href="tel:102"><Phone className="w-3 h-3" /> Fire: 102</a>
-                  </Button>
-                  <Button variant="outline" size="sm" className="justify-start gap-2" asChild>
-                    <a href="tel:100"><Phone className="w-3 h-3" /> Police: 100</a>
-                  </Button>
+                  {contacts.slice(0, 4).map((contact: any) => (
+                    <Button key={contact.id} variant="outline" size="sm" className="justify-start gap-2 truncate" asChild title={contact.name}>
+                      <a href={`tel:${contact.phone}`}>
+                        <Phone className="w-3 h-3 shrink-0" /> {contact.name}: {contact.phone}
+                      </a>
+                    </Button>
+                  ))}
+                  {contacts.length === 0 && (
+                    <>
+                      <Button variant="outline" size="sm" className="justify-start gap-2" asChild>
+                        <a href="tel:102"><Phone className="w-3 h-3" /> Fire: 102</a>
+                      </Button>
+                      <Button variant="outline" size="sm" className="justify-start gap-2" asChild>
+                        <a href="tel:100"><Phone className="w-3 h-3" /> Police: 100</a>
+                      </Button>
+                    </>
+                  )}
                 </div>
               </div>
             </CardContent>
           </Card>
         </div>
       </div>
+
+      <footer className="flex sm:flex-row flex-col justify-between items-center gap-4 mt-8 pt-8 border-t font-semibold text-[10px] text-muted-foreground uppercase tracking-widest">
+        <div className="flex gap-6">
+          <div className="flex flex-col">
+            <span className="opacity-60 text-[8px]">Seismic Data Source</span>
+            <span>USGS FDSN API</span>
+          </div>
+          <div className="flex flex-col">
+            <span className="opacity-60 text-[8px]">Truth Verification</span>
+            <span>Drishtikon.life</span>
+          </div>
+        </div>
+        <p className="opacity-60">&copy; 2026 AntiQuake Disaster Management</p>
+      </footer>
     </div>
   )
 }

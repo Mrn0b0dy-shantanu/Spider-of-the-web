@@ -1,8 +1,8 @@
 import { createClient } from "../supabase/server";
 import { Incident, InventoryItem, Personnel, Organization, Request } from "../types";
 
-// NOTE: Since we are using Supabase, these functions will fetch from the respective tables.
-// If the tables do not exist yet, you will need to create them in the Supabase dashboard.
+
+
 
 export async function getIncidents(): Promise<Incident[]> {
   const supabase = await createClient();

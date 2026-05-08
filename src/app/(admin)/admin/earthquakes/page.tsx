@@ -13,7 +13,7 @@ import { Activity, Globe2, Filter, List, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger, SheetTitle, SheetHeader } from "@/components/ui/sheet";
 
-// Dynamically import Map component to avoid SSR issues with Leaflet
+
 const MapWithNoSSR = dynamic(() => import("@/components/Map"), {
   ssr: false,
   loading: () => <div className="flex justify-center items-center bg-muted/50 rounded-lg w-full h-full animate-pulse"><Activity className="w-8 h-8 text-muted-foreground animate-spin" /></div>
@@ -51,18 +51,18 @@ export default function EarthquakeRadar() {
       },
       (err) => {
         console.error(err);
-        // Only alert if they manually clicked the button, not on auto-load
-        // alert("Unable to retrieve your location. Please check browser permissions.");
+
+
         setIsLocating(false);
       }
     );
   }, [userLocation]);
 
   useEffect(() => {
-    // Auto-locate on initial load if:
-    // 1. Location isn't set yet
-    // 2. We're not already locating
-    // 3. There is NO specific earthquake ID in the search params (prioritize the selected incident)
+
+
+
+
     if (!userLocation && !isLocating && !eqId) {
       setIsLocating(true);
       navigator.geolocation.getCurrentPosition(
@@ -76,12 +76,16 @@ export default function EarthquakeRadar() {
         }
       );
     }
-  }, []); // Run once on mount
+  }, []);
 
   return (
     <div className="flex flex-col bg-background w-full h-screen overflow-hidden">
       <header className="flex justify-end items-center px-6 border-b h-16 shrink-0">
         <div className="flex items-center gap-6">
+          <div className="hidden md:flex items-center gap-2 bg-muted/50 px-3 py-1 border border-border rounded-full">
+            <span className="font-bold text-[10px] text-muted-foreground uppercase tracking-wider">Source:</span>
+            <span className="font-semibold text-[10px]">USGS FDSN API</span>
+          </div>
           <div className="hidden md:flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Label htmlFor="range-select" className="font-medium text-sm">Time Range:</Label>
@@ -123,7 +127,7 @@ export default function EarthquakeRadar() {
       </header>
 
       <main className="flex flex-1 overflow-hidden">
-        {/* Mobile Filter Controls (Visible only on small screens) */}
+
         <div className="md:hidden z-10 absolute flex flex-col gap-4 bg-background/95 backdrop-blur p-4 border-b w-full">
           <div className="flex items-center gap-2">
             <Select value={range} onValueChange={setRange}>
@@ -159,7 +163,7 @@ export default function EarthquakeRadar() {
           </Button>
         </div>
 
-        {/* Map Area (70%) */}
+
         <div className="z-0 relative flex-1 p-0 md:w-[70%] h-full">
           {isError && (
             <div className="z-10 absolute inset-0 flex justify-center items-center bg-background/80">
@@ -176,7 +180,7 @@ export default function EarthquakeRadar() {
             userLocation={userLocation}
           />
 
-          {/* Mobile Floating Action Button for Feed */}
+
           <div className="md:hidden right-6 bottom-6 z-10 absolute">
             <Sheet>
               <SheetTrigger asChild>
@@ -196,7 +200,7 @@ export default function EarthquakeRadar() {
                     earthquakes={earthquakes}
                     onSelectEarthquake={(eq) => {
                       setSelectedEq(eq);
-                      // In a real app we might want to auto-close or leave open
+
                     }}
                     selectedEarthquakeId={selectedEq?.id}
                     isLoading={isLoading}
@@ -208,7 +212,7 @@ export default function EarthquakeRadar() {
           </div>
         </div>
 
-        {/* Sidebar Feed (30%) */}
+
         <div className="hidden md:flex flex-col bg-card border-l w-[30%] h-full">
           <div className="bg-muted/20 p-4 border-b">
             <h2 className="flex items-center gap-2 font-semibold">

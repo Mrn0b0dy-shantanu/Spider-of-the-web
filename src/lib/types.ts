@@ -46,3 +46,27 @@ export interface Request {
   priority: "High" | "Medium" | "Low";
   status: "Pending" | "Approved" | "Fulfilled";
 }
+
+export type RequestStatus = "pending" | "approved" | "in_progress" | "rejected" | "fulfilled";
+
+export interface DisasterRequest {
+  id: string;
+  user_id: string;
+  category_id: string;
+  title: string;
+  description: string;
+  urgency: "critical" | "high" | "medium" | "low";
+  status: RequestStatus;
+  location: string;
+  contact_info?: string;
+  created_at: string;
+  admin_notes?: string;
+  profiles?: {
+    full_name: string;
+    phone: string;
+  };
+  categories?: {
+    name: string;
+    icon: string;
+  };
+}

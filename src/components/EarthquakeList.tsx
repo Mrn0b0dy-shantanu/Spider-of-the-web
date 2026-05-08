@@ -14,14 +14,14 @@ interface EarthquakeListProps {
   userLocation?: { lat: number; lng: number };
 }
 
-// Haversine distance formula
+
 const getDistance = (lat1: number, lon1: number, lat2: number, lon2: number) => {
-  const p = 0.017453292519943295;    // Math.PI / 180
+  const p = 0.017453292519943295;
   const c = Math.cos;
-  const a = 0.5 - c((lat2 - lat1) * p)/2 + 
-          c(lat1 * p) * c(lat2 * p) * 
-          (1 - c((lon2 - lon1) * p))/2;
-  return 12742 * Math.asin(Math.sqrt(a)); // 2 * R; R = 6371 km
+  const a = 0.5 - c((lat2 - lat1) * p) / 2 +
+    c(lat1 * p) * c(lat2 * p) *
+    (1 - c((lon2 - lon1) * p)) / 2;
+  return 12742 * Math.asin(Math.sqrt(a));
 };
 
 const getMagnitudeColor = (mag: number) => {
@@ -31,20 +31,20 @@ const getMagnitudeColor = (mag: number) => {
   return "bg-red-500/10 text-red-500 border-red-500/20";
 };
 
-export default function EarthquakeList({ 
-  earthquakes, 
-  onSelectEarthquake, 
+export default function EarthquakeList({
+  earthquakes,
+  onSelectEarthquake,
   selectedEarthquakeId,
   isLoading,
   userLocation
 }: EarthquakeListProps) {
-  
+
   if (isLoading) {
     return (
       <div className="space-y-3 p-4">
         {[1, 2, 3, 4, 5].map(i => (
           <Card key={i} className="animate-pulse">
-            <CardContent className="p-4 h-24 bg-muted/40" />
+            <CardContent className="bg-muted/40 p-4 h-24" />
           </Card>
         ))}
       </div>
@@ -53,42 +53,42 @@ export default function EarthquakeList({
 
   if (earthquakes.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center h-48 text-muted-foreground p-4 text-center">
-        <Activity className="h-8 w-8 mb-2 opacity-20" />
+      <div className="flex flex-col justify-center items-center p-4 h-48 text-muted-foreground text-center">
+        <Activity className="opacity-20 mb-2 w-8 h-8" />
         <p>No earthquakes found for the selected criteria.</p>
       </div>
     );
   }
 
-  // Sort by distance if userLocation is available, otherwise by time (API default)
-  const sortedEarthquakes = userLocation 
+
+  const sortedEarthquakes = userLocation
     ? [...earthquakes].sort((a, b) => {
-        const distA = getDistance(userLocation.lat, userLocation.lng, a.geometry.coordinates[1], a.geometry.coordinates[0]);
-        const distB = getDistance(userLocation.lat, userLocation.lng, b.geometry.coordinates[1], b.geometry.coordinates[0]);
-        return distA - distB;
-      })
+      const distA = getDistance(userLocation.lat, userLocation.lng, a.geometry.coordinates[1], a.geometry.coordinates[0]);
+      const distB = getDistance(userLocation.lat, userLocation.lng, b.geometry.coordinates[1], b.geometry.coordinates[0]);
+      return distA - distB;
+    })
     : earthquakes;
 
   return (
-    <div className="space-y-3 p-4 overflow-y-auto h-full">
+    <div className="space-y-3 p-4 h-full overflow-y-auto">
       {sortedEarthquakes.map((eq) => {
         const mag = eq.properties.mag;
         const colorClass = getMagnitudeColor(mag);
         const isSelected = selectedEarthquakeId === eq.id;
-        
+
         let distanceText = "";
         if (userLocation) {
           const dist = getDistance(userLocation.lat, userLocation.lng, eq.geometry.coordinates[1], eq.geometry.coordinates[0]);
           distanceText = `${Math.round(dist)}km away`;
         }
-        
+
         return (
-          <Card 
-            key={eq.id} 
+          <Card
+            key={eq.id}
             className={`cursor-pointer transition-all hover:bg-accent/50 ${isSelected ? 'ring-2 ring-primary border-primary' : ''}`}
             onClick={() => onSelectEarthquake(eq)}
           >
-            <CardContent className="p-4 flex gap-4 items-center">
+            <CardContent className="flex items-center gap-4 p-4">
               <div className={`flex items-center justify-center h-12 w-12 rounded-full border ${colorClass} font-bold text-lg`}>
                 {mag.toFixed(1)}
               </div>
@@ -96,7 +96,7 @@ export default function EarthquakeList({
                 <p className="font-medium text-sm truncate" title={eq.properties.place}>
                   {eq.properties.place}
                 </p>
-                <div className="flex items-center flex-wrap text-xs text-muted-foreground mt-1 gap-2">
+                <div className="flex flex-wrap items-center gap-2 mt-1 text-muted-foreground text-xs">
                   <span>{format(new Date(eq.properties.time), "MMM d, HH:mm")}</span>
                   <span>•</span>
                   <span>{eq.geometry.coordinates[2].toFixed(1)} km depth</span>

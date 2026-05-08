@@ -16,7 +16,8 @@ import {
   Settings,
   ChevronRight,
   AlertCircle,
-  LogOut
+  LogOut,
+  Newspaper
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { signOut } from "@/app/actions/auth"
@@ -32,6 +33,8 @@ const adminNavItems = [
   { name: "Partner Orgs", href: "/admin/organizations", icon: Building },
   { name: "Reports & Data", href: "/admin/reports", icon: BarChart3 },
   { name: "Notifications", href: "/admin/notifications", icon: Bell },
+  { name: "News Verification", href: "/admin/news", icon: Newspaper },
+  { name: "Community Monitor", href: "/admin/community", icon: Users },
   { name: "User Management", href: "/admin/users", icon: Users },
 ]
 

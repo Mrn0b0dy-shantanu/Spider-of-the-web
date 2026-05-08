@@ -29,7 +29,7 @@ export interface EarthquakeProperties {
 
 export interface EarthquakeGeometry {
   type: "Point";
-  coordinates: [number, number, number]; // [longitude, latitude, depth]
+  coordinates: [number, number, number];
 }
 
 export interface EarthquakeFeature {
@@ -53,7 +53,7 @@ export interface EarthquakeResponse {
 }
 
 export const fetchEarthquakes = async (
-  range: string, 
+  range: string,
   minMagnitude: number,
   location?: { lat: number; lng: number; radiusKm?: number }
 ): Promise<EarthquakeResponse> => {
@@ -73,7 +73,7 @@ export const fetchEarthquakes = async (
   url.searchParams.append("starttime", starttime.toISOString());
   url.searchParams.append("endtime", endtime);
   url.searchParams.append("minmagnitude", minMagnitude.toString());
-  
+
   if (location) {
     url.searchParams.append("latitude", location.lat.toString());
     url.searchParams.append("longitude", location.lng.toString());

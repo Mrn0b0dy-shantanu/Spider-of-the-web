@@ -17,6 +17,20 @@ export async function getNotifications() {
   return data || []
 }
 
+export async function getUnreadNotificationsCount() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (!user) return 0
+
+  const { count } = await supabase
+    .from("notifications")
+    .select("*", { count: "exact", head: true })
+    .eq("user_id", user.id)
+    .eq("is_read", false)
+
+  return count || 0
+}
+
 export async function markNotificationRead(id: string) {
   const supabase = await createClient()
   await supabase.from("notifications").update({ is_read: true }).eq("id", id)
@@ -46,7 +60,7 @@ export async function createAnnouncement(formData: FormData) {
 
   if (error) return { error: error.message }
 
-  // Notify all users
+
   const { data: users } = await supabase.from("profiles").select("id").eq("role", "user")
   if (users?.length) {
     await supabase.from("notifications").insert(

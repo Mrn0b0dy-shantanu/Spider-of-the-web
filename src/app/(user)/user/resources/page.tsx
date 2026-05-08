@@ -1,5 +1,6 @@
 import { getEmergencyContacts } from "@/app/actions/admin"
 import { getAnnouncements } from "@/app/actions/notifications"
+import { getShelters } from "@/app/actions/shelters"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -18,9 +19,10 @@ const typeColors: Record<string, string> = {
 }
 
 export default async function UserResourcesPage() {
-  const [contacts, announcements] = await Promise.all([
+  const [contacts, announcements, shelters] = await Promise.all([
     getEmergencyContacts(),
     getAnnouncements(),
+    getShelters(),
   ])
 
   return (
@@ -31,7 +33,7 @@ export default async function UserResourcesPage() {
       </div>
 
       <div className="gap-6 grid lg:grid-cols-3">
-        {/* Hotlines */}
+
         <div className="space-y-6 lg:col-span-2">
           <Card>
             <CardHeader>
@@ -98,7 +100,7 @@ export default async function UserResourcesPage() {
           </Card>
         </div>
 
-        {/* Announcements sidebar */}
+
         <div className="space-y-6">
           <Card className="shadow-lg border-primary/20">
             <CardHeader className="bg-primary/5">
@@ -125,24 +127,23 @@ export default async function UserResourcesPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
                 <MapPin className="w-5 h-5 text-muted-foreground" />
-                Supply Centers
+                Active Relief Points
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
-              <div className="text-sm">
-                <p className="font-medium">Dhaka Central Hub</p>
-                <p className="text-muted-foreground text-xs italic">Farmgate Area, Dhaka</p>
-              </div>
-              <Separator />
-              <div className="text-sm">
-                <p className="font-medium">Sylhet Zonal Hub</p>
-                <p className="text-muted-foreground text-xs italic">Circuit House Road, Sylhet</p>
-              </div>
-              <Separator />
-              <div className="text-sm">
-                <p className="font-medium">Chittagong Relief Point</p>
-                <p className="text-muted-foreground text-xs italic">Agrabad, Chittagong</p>
-              </div>
+              {shelters.length === 0 ? (
+                <p className="text-muted-foreground text-xs italic">No relief points active.</p>
+              ) : (
+                shelters.slice(0, 4).map((shelter, idx) => (
+                  <div key={shelter.id}>
+                    <div className="text-sm">
+                      <p className="font-medium">{shelter.name}</p>
+                      <p className="text-muted-foreground text-xs italic">{shelter.location}</p>
+                    </div>
+                    {idx < shelters.slice(0, 4).length - 1 && <Separator className="my-2" />}
+                  </div>
+                ))
+              )}
             </CardContent>
           </Card>
         </div>
