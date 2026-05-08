@@ -85,7 +85,7 @@ export default async function UserDashboard() {
                       <h4 className="font-bold text-sm">{ann.title}</h4>
                       <Badge variant={ann.priority === 'critical' ? 'destructive' : 'outline'} className="capitalize text-[10px]">
                         {ann.priority}
-                      </priority>
+                      </Badge>
                     </div>
                     <p className="text-sm text-muted-foreground">{ann.message}</p>
                     <p className="text-[10px] text-muted-foreground mt-2">{formatDate(ann.created_at)}</p>
