@@ -9,7 +9,8 @@ import {
   Box, 
   Users, 
   Building, 
-  FileText 
+  FileText,
+  Globe
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
@@ -21,6 +22,7 @@ const navItems = [
   { name: "Personnel", href: "/personnel", icon: Users },
   { name: "Organizations", href: "/organizations", icon: Building },
   { name: "Requests", href: "/requests", icon: FileText },
+  { name: "Earthquakes", href: "/earthquakes", icon: Globe },
 ];
 
 export function Sidebar() {

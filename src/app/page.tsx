@@ -1,5 +1,6 @@
-import { Activity, Box, Users, Building, ShieldAlert } from "lucide-react";
+import { Activity, Box, Users, Building, ShieldAlert, Globe2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import Link from "next/link";
 import { getDashboardStats, getIncidents, getRequests } from "@/lib/services/api";
 
 export default async function Home() {
@@ -21,9 +22,17 @@ export default async function Home() {
       </header>
 
       <main className="flex flex-1 flex-col gap-6 p-6 md:gap-8 md:p-10">
-        <div className="flex flex-col gap-2">
-          <h1 className="text-3xl font-bold tracking-tight">Command Center</h1>
-          <p className="text-muted-foreground">Monitor and manage disaster response operations.</p>
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="flex flex-col gap-2">
+            <h1 className="text-3xl font-bold tracking-tight">Command Center</h1>
+            <p className="text-muted-foreground">Monitor and manage disaster response operations.</p>
+          </div>
+          <Button asChild>
+            <Link href="/earthquakes" className="flex items-center gap-2">
+              <Globe2 className="h-4 w-4" />
+              Live Earthquake Radar
+            </Link>
+          </Button>
         </div>
 
         <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
