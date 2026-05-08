@@ -1,13 +1,13 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { Sidebar } from "@/components/Sidebar";
 import "./globals.css";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
+
+const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "NDC Hackathon 2026 | Innovation at Notre Dame College",
-  description: "Join the most prestigious college hackathon in Bangladesh. Innovate, collaborate, and compete for excellence at Notre Dame College.",
-  keywords: ["NDC", "Hackathon", "Notre Dame College", "Programming", "Coding Contest", "Bangladesh"],
-  authors: [{ name: "NDC IT Club" }],
+  title: "NDC - Disaster Management",
+  description: "Modern SaaS Platform for Disaster Management and Response",
 };
 
 export default function RootLayout({
@@ -16,11 +16,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body style={{ margin: 0 }}>
-        <Navbar />
-        <main>{children}</main>
-        <Footer />
+    <html lang="en" className="dark">
+      <body className={`${inter.className} min-h-screen bg-background font-sans antialiased flex`}>
+        <Sidebar />
+        <div className="flex-1 overflow-y-auto">
+          {children}
+        </div>
       </body>
     </html>
   );
