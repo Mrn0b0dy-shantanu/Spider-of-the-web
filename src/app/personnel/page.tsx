@@ -1,6 +1,5 @@
 import { getPersonnel } from "@/lib/services/api";
-import { Button } from "@/components/ui/button";
-import { Users, UserPlus } from "lucide-react";
+import { CreatePersonnelButton } from "./PersonnelClient";
 
 export default async function PersonnelPage() {
   const personnel = await getPersonnel();
@@ -20,10 +19,7 @@ export default async function PersonnelPage() {
             <h2 className="text-2xl font-bold tracking-tight">Staff & Volunteers</h2>
             <p className="text-muted-foreground">Manage deployments and availability of personnel.</p>
           </div>
-          <Button>
-            <UserPlus className="mr-2 h-4 w-4" />
-            Add Personnel
-          </Button>
+          <CreatePersonnelButton />
         </div>
 
         <div className="rounded-md border">
@@ -56,6 +52,9 @@ export default async function PersonnelPage() {
               ))}
             </tbody>
           </table>
+          {personnel.length === 0 && (
+            <div className="p-4 text-center text-muted-foreground">No personnel found.</div>
+          )}
         </div>
       </main>
     </div>

@@ -13,6 +13,8 @@
     "@hookform/resolvers": "^5.2.2",
     "@prisma/client": "^7.8.0",
     "@radix-ui/react-slot": "^1.2.4",
+    "@supabase/ssr": "^0.10.3",
+    "@supabase/supabase-js": "^2.105.3",
     "@tailwindcss/postcss": "^4.2.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",

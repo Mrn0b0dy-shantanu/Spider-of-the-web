@@ -1,6 +1,7 @@
 import { getInventory } from "@/lib/services/api";
 import { Button } from "@/components/ui/button";
-import { Box, Plus, Search } from "lucide-react";
+import { Search } from "lucide-react";
+import { CreateLogisticsButton } from "./LogisticsClient";
 
 export default async function LogisticsPage() {
   const inventory = await getInventory();
@@ -25,10 +26,7 @@ export default async function LogisticsPage() {
               <Search className="mr-2 h-4 w-4" />
               Search
             </Button>
-            <Button>
-              <Plus className="mr-2 h-4 w-4" />
-              Add Stock
-            </Button>
+            <CreateLogisticsButton />
           </div>
         </div>
 
@@ -62,6 +60,9 @@ export default async function LogisticsPage() {
               ))}
             </tbody>
           </table>
+          {inventory.length === 0 && (
+            <div className="p-4 text-center text-muted-foreground">No items found.</div>
+          )}
         </div>
       </main>
     </div>

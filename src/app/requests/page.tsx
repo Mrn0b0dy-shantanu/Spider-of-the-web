@@ -1,6 +1,6 @@
 import { getRequests } from "@/lib/services/api";
 import { Button } from "@/components/ui/button";
-import { FileText, Plus } from "lucide-react";
+import { CreateRequestButton } from "./RequestsClient";
 
 export default async function RequestsPage() {
   const requests = await getRequests();
@@ -20,10 +20,7 @@ export default async function RequestsPage() {
             <h2 className="text-2xl font-bold tracking-tight">Needs & Commitments</h2>
             <p className="text-muted-foreground">Manage and track requests for supplies and personnel.</p>
           </div>
-          <Button>
-            <Plus className="mr-2 h-4 w-4" />
-            New Request
-          </Button>
+          <CreateRequestButton />
         </div>
 
         <div className="rounded-md border">
@@ -67,6 +64,9 @@ export default async function RequestsPage() {
               ))}
             </tbody>
           </table>
+          {requests.length === 0 && (
+            <div className="p-4 text-center text-muted-foreground">No requests found.</div>
+          )}
         </div>
       </main>
     </div>

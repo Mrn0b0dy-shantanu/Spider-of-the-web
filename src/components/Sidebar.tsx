@@ -26,6 +26,10 @@ const navItems = [
 export function Sidebar() {
   const pathname = usePathname();
 
+  if (pathname === "/login" || pathname === "/signup") {
+    return null;
+  }
+
   return (
     <div className="hidden border-r bg-muted/40 md:block w-64 h-full min-h-screen">
       <div className="flex h-full max-h-screen flex-col gap-2">

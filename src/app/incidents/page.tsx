@@ -1,6 +1,5 @@
 import { getIncidents } from "@/lib/services/api";
-import { Button } from "@/components/ui/button";
-import { Activity, Plus } from "lucide-react";
+import { CreateIncidentButton, IncidentActions } from "./IncidentClient";
 
 export default async function IncidentsPage() {
   const incidents = await getIncidents();
@@ -20,10 +19,7 @@ export default async function IncidentsPage() {
             <h2 className="text-2xl font-bold tracking-tight">Active Events</h2>
             <p className="text-muted-foreground">Manage ongoing disaster situations and alerts.</p>
           </div>
-          <Button>
-            <Plus className="mr-2 h-4 w-4" />
-            New Incident
-          </Button>
+          <CreateIncidentButton />
         </div>
 
         <div className="rounded-md border">
@@ -54,7 +50,7 @@ export default async function IncidentsPage() {
                   </td>
                   <td className="p-4 align-middle">{new Date(incident.createdAt).toLocaleDateString()}</td>
                   <td className="p-4 align-middle">
-                    <Button variant="ghost" size="sm">View</Button>
+                    <IncidentActions id={incident.id} />
                   </td>
                 </tr>
               ))}
