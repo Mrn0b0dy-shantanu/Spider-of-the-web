@@ -11,7 +11,10 @@ export async function getIncidents(): Promise<Incident[]> {
     console.error("Error fetching incidents:", error);
     return [];
   }
-  return data as Incident[];
+  return data.map(item => ({
+    ...item,
+    createdAt: item.created_at
+  })) as Incident[];
 }
 
 export async function getInventory(): Promise<InventoryItem[]> {
@@ -41,7 +44,11 @@ export async function getOrganizations(): Promise<Organization[]> {
     console.error("Error fetching organizations:", error);
     return [];
   }
-  return data as Organization[];
+  return data.map(item => ({
+    ...item,
+    personnelCount: item.personnel_count,
+    contactEmail: item.contact_email
+  })) as Organization[];
 }
 
 export async function getRequests(): Promise<Request[]> {

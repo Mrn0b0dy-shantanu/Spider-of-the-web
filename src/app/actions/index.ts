@@ -99,3 +99,28 @@ export async function createRequest(formData: FormData) {
   revalidatePath("/");
   return { success: true };
 }
+
+export async function createOrganization(formData: FormData) {
+  const supabase = await createClient();
+  
+  const name = formData.get("name") as string;
+  const type = formData.get("type") as string;
+  const personnelCount = parseInt(formData.get("personnelCount") as string, 10);
+  const contactEmail = formData.get("contactEmail") as string;
+
+  const { error } = await supabase.from('organizations').insert([
+    { 
+      name, 
+      type, 
+      personnel_count: personnelCount, 
+      contact_email: contactEmail, 
+      created_at: new Date().toISOString() 
+    }
+  ]);
+
+  if (error) return { success: false, error: error.message };
+
+  revalidatePath("/organizations");
+  revalidatePath("/");
+  return { success: true };
+}
