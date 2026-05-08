@@ -1,161 +1,95 @@
-"use client";
+"use client"
 
-import { useState } from "react";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { ShieldAlert, Loader2 } from "lucide-react";
-
-const signupSchema = z
-  .object({
-    fullName: z.string().min(2, "Full name must be at least 2 characters"),
-    email: z.string().min(1, "Email is required").email("Invalid email format"),
-    password: z.string().min(6, "Password must be at least 6 characters"),
-    confirmPassword: z.string().min(1, "Please confirm your password"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords do not match",
-    path: ["confirmPassword"],
-  });
-
-type SignupFormValues = z.infer<typeof signupSchema>;
+import { useState, useTransition } from "react"
+import { signUp } from "@/app/actions/auth"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { ShieldAlert, Loader2, UserPlus } from "lucide-react"
+import Link from "next/link"
+import { toast } from "sonner"
+import { useRouter } from "next/navigation"
 
 export default function SignupPage() {
-  const router = useRouter();
-  const [error, setError] = useState("");
-  const [success, setSuccess] = useState(false);
+  const router = useRouter()
+  const [isPending, startTransition] = useTransition()
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<SignupFormValues>({
-    resolver: zodResolver(signupSchema),
-  });
-
-  const onSubmit = async (data: SignupFormValues) => {
-    setError("");
-    // Simulate API call for local testing
-    try {
-      await new Promise((resolve) => setTimeout(resolve, 1500));
-      
-      // Show success briefly, then redirect
-      setSuccess(true);
-      setTimeout(() => {
-        router.push("/login");
-      }, 1500);
-    } catch (err: any) {
-      setError(err.message || "Something went wrong.");
-    }
-  };
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    const formData = new FormData(e.currentTarget)
+    
+    startTransition(async () => {
+      const res = await signUp(formData)
+      if (res?.success) {
+        toast.success("Account created! Please login.")
+        router.push("/login")
+      } else if (res?.error) {
+        toast.error(res.error)
+      }
+    })
+  }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-muted/40 p-4">
-      <div className="w-full max-w-md space-y-8 rounded-xl border bg-background p-8 shadow-sm">
-        <div className="flex flex-col items-center space-y-2 text-center">
-          <ShieldAlert className="h-10 w-10 text-primary" />
-          <h1 className="text-2xl font-semibold tracking-tight">Create an account</h1>
-          <p className="text-sm text-muted-foreground">
-            Join the operational network to access relief tools
-          </p>
-        </div>
-
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-          {error && (
-            <div className="rounded-md bg-destructive/15 p-3 text-sm text-destructive text-center">
-              {error}
-            </div>
-          )}
-          {success && (
-            <div className="rounded-md bg-green-500/15 p-3 text-sm text-green-500 text-center">
-              Account created successfully! Redirecting...
-            </div>
-          )}
-
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="fullName">Full Name</Label>
-              <Input
-                id="fullName"
-                type="text"
-                placeholder="John Doe"
-                {...register("fullName")}
-                className={errors.fullName ? "border-destructive" : ""}
-                disabled={success}
-              />
-              {errors.fullName && (
-                <p className="text-xs text-destructive">{errors.fullName.message}</p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder="name@example.com"
-                {...register("email")}
-                className={errors.email ? "border-destructive" : ""}
-                disabled={success}
-              />
-              {errors.email && (
-                <p className="text-xs text-destructive">{errors.email.message}</p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
-              <Input
-                id="password"
-                type="password"
-                {...register("password")}
-                className={errors.password ? "border-destructive" : ""}
-                disabled={success}
-              />
-              {errors.password && (
-                <p className="text-xs text-destructive">{errors.password.message}</p>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="confirmPassword">Confirm Password</Label>
-              <Input
-                id="confirmPassword"
-                type="password"
-                {...register("confirmPassword")}
-                className={errors.confirmPassword ? "border-destructive" : ""}
-                disabled={success}
-              />
-              {errors.confirmPassword && (
-                <p className="text-xs text-destructive">{errors.confirmPassword.message}</p>
-              )}
-            </div>
+    <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
+      <div className="w-full max-w-md space-y-8">
+        <div className="flex flex-col items-center text-center space-y-2">
+          <div className="p-3 bg-primary rounded-2xl shadow-xl shadow-primary/20">
+            <ShieldAlert className="h-8 w-8 text-primary-foreground" />
           </div>
-
-          <Button type="submit" className="w-full" disabled={isSubmitting || success}>
-            {isSubmitting ? (
-              <>
-                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Creating account...
-              </>
-            ) : (
-              "Create Account"
-            )}
-          </Button>
-        </form>
-
-        <div className="text-center text-sm text-muted-foreground">
-          Already have an account?{" "}
-          <Link href="/login" className="font-medium text-primary hover:underline">
-            Sign in
-          </Link>
+          <h1 className="text-3xl font-black tracking-tight">NDC ReliefOps</h1>
+          <p className="text-muted-foreground">Register for emergency relief services</p>
         </div>
+
+        <Card className="border-none shadow-2xl">
+          <CardHeader className="space-y-1">
+            <CardTitle className="text-2xl font-bold">Create Account</CardTitle>
+            <CardDescription>Join the national relief coordination network</CardDescription>
+          </CardHeader>
+          <form onSubmit={handleSubmit}>
+            <CardContent className="space-y-4">
+              <div className="space-y-2">
+                <Label htmlFor="fullName">Full Name</Label>
+                <Input id="fullName" name="fullName" placeholder="John Doe" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="email">Email Address</Label>
+                <Input id="email" name="email" type="email" placeholder="name@example.com" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="password">Password</Label>
+                <Input id="password" name="password" type="password" required />
+              </div>
+              <div className="space-y-2">
+                <Label htmlFor="role">Register As</Label>
+                <Select name="role" defaultValue="user">
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="user">Citizen (Need Help / Volunteer)</SelectItem>
+                    <SelectItem value="admin">Admin (Operational Personnel)</SelectItem>
+                  </SelectContent>
+                </Select>
+                <p className="text-[10px] text-muted-foreground italic">
+                  Note: Admin roles may require additional verification after registration.
+                </p>
+              </div>
+            </CardContent>
+            <CardFooter className="flex flex-col space-y-4">
+              <Button type="submit" className="w-full h-11" disabled={isPending}>
+                {isPending ? <Loader2 className="mr-2 h-4 w-4 animate-spin" /> : <UserPlus className="mr-2 h-4 w-4" />}
+                Create Account
+              </Button>
+              <div className="text-center text-sm text-muted-foreground">
+                Already have an account?{" "}
+                <Link href="/login" className="text-primary font-bold hover:underline">Login</Link>
+              </div>
+            </CardFooter>
+          </form>
+        </Card>
       </div>
     </div>
-  );
+  )
 }
