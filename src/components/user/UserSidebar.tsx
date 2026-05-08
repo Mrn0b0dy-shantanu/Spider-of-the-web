@@ -12,14 +12,17 @@ import {
   User,
   ShieldAlert,
   ChevronRight,
-  Heart
+  Heart,
+  LogOut,
+  Map
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { signOut } from "@/app/actions/auth"
 
 const userNavItems = [
   { name: "Dashboard", href: "/user/dashboard", icon: LayoutDashboard },
   { name: "New Request", href: "/user/create-request", icon: FilePlus },
-  { name: "Earthquake Map", href: "/user/earthquake-map", icon: Home },
+  { name: "Earthquake Map", href: "/user/earthquake-map", icon: Map },
   { name: "Shelters", href: "/user/shelters", icon: Home },
   { name: "My Requests", href: "/user/requests", icon: FileText },
   { name: "Emergency Resources", href: "/user/resources", icon: BookOpen },
@@ -77,6 +80,12 @@ export function UserSidebar({ className }: { className?: string }) {
             Emergency? Call 999 immediately. For relief requests, use the form above.
           </p>
         </div>
+        <form action={signOut} className="mt-4">
+          <button className="flex items-center gap-3 hover:bg-muted px-3 py-2 rounded-lg w-full font-medium text-muted-foreground hover:text-primary text-sm transition-all">
+            <LogOut className="w-4 h-4" />
+            Log out
+          </button>
+        </form>
       </div>
     </aside>
   )
