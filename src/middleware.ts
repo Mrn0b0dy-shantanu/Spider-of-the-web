@@ -59,10 +59,10 @@ export async function middleware(request: NextRequest) {
 
     if (url.pathname.startsWith("/login") || url.pathname.startsWith("/signup")) {
       if (role === "admin") {
-        url.pathname = "/dashboard"
+        url.pathname = "/user/dashboard"
         return NextResponse.redirect(url)
       } else {
-        url.pathname = "/dashboard"
+        url.pathname = "/user/dashboard"
         return NextResponse.redirect(url)
       }
     }

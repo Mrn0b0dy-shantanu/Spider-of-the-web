@@ -78,10 +78,6 @@ export default function LandingNavbar() {
 
 
             <div className="hidden lg:flex items-center gap-3">
-              <div className="flex items-center gap-1.5 bg-emerald-500/10 mr-2 px-3 py-1.5 border border-emerald-500/20 rounded-full">
-                <Radio className="w-3 h-3 text-emerald-400 animate-pulse" />
-                <span className="font-medium text-emerald-400 text-xs">Systems Online</span>
-              </div>
               <Button
                 asChild
                 variant="ghost"

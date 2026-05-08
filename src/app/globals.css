@@ -81,7 +81,7 @@ html {
   scroll-behavior: smooth;
 }
 
-/* Landing page pulse animation */
+
 @keyframes landing-pulse {
   0%, 100% { opacity: 0.4; }
   50% { opacity: 1; }
@@ -91,7 +91,7 @@ html {
   animation: landing-pulse 2s ease-in-out infinite;
 }
 
-/* Custom scrollbar for landing */
+
 ::-webkit-scrollbar {
   width: 6px;
 }

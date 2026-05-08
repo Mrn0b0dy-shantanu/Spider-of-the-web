@@ -17,7 +17,7 @@ import {
   CheckCircle2,
 } from "lucide-react";
 
-/* ─── Community Aid Section ─── */
+
 const aidCategories = [
   { icon: Package, label: "Supply Donations", count: "12,847", color: "text-emerald-400", bg: "bg-emerald-500/10" },
   { icon: Home, label: "Shelter Offered", count: "3,290", color: "text-blue-400", bg: "bg-blue-500/10" },
@@ -48,44 +48,44 @@ export function CommunityAidSection() {
       <div className="absolute inset-0 bg-[#07070c]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_70%_50%,rgba(120,20,120,0.06),transparent)]" />
 
-      <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left content */}
+      <div ref={ref} className="z-10 relative mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
+        <div className="items-center gap-12 lg:gap-16 grid grid-cols-1 lg:grid-cols-2">
+
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7 }}
           >
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-6">
+            <div className="inline-flex items-center gap-2 bg-purple-500/10 mb-6 px-3 py-1 border border-purple-500/20 rounded-full font-semibold text-purple-400 text-xs uppercase tracking-wider">
               <HeartHandshake className="w-3 h-3" />
               Community Network
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-4">
+            <h2 className="mb-4 font-black text-white text-3xl sm:text-4xl tracking-tight">
               Communities Helping{" "}
-              <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+              <span className="bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 text-transparent">
                 Communities
               </span>
             </h2>
-            <p className="text-base text-zinc-500 leading-relaxed mb-8">
+            <p className="mb-8 text-zinc-500 text-base leading-relaxed">
               A peer-to-peer ecosystem where civilians can offer help, request supplies, open
               shelters, and coordinate with neighbors — turning communities into first responders.
             </p>
 
-            {/* Aid categories */}
-            <div className="grid grid-cols-2 gap-3">
+
+            <div className="gap-3 grid grid-cols-2">
               {aidCategories.map((cat, i) => (
                 <motion.div
                   key={cat.label}
                   initial={{ opacity: 0, y: 20 }}
                   animate={inView ? { opacity: 1, y: 0 } : {}}
                   transition={{ duration: 0.5, delay: 0.3 + i * 0.1 }}
-                  className="flex items-center gap-3 p-3.5 rounded-xl bg-white/[0.03] border border-white/[0.06]"
+                  className="flex items-center gap-3 bg-white/[0.03] p-3.5 border border-white/[0.06] rounded-xl"
                 >
                   <div className={`p-2 rounded-lg ${cat.bg}`}>
                     <cat.icon className={`w-4 h-4 ${cat.color}`} />
                   </div>
                   <div>
-                    <p className="text-sm font-bold text-white">{cat.count}</p>
+                    <p className="font-bold text-white text-sm">{cat.count}</p>
                     <p className="text-[11px] text-zinc-500">{cat.label}</p>
                   </div>
                 </motion.div>
@@ -93,18 +93,18 @@ export function CommunityAidSection() {
             </div>
           </motion.div>
 
-          {/* Right: Live feed mock */}
+
           <motion.div
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="p-5 sm:p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06]"
+            className="bg-white/[0.02] p-5 sm:p-6 border border-white/[0.06] rounded-2xl"
           >
-            <div className="flex items-center justify-between mb-5">
-              <h4 className="text-sm font-semibold text-zinc-300">Live Aid Activity</h4>
+            <div className="flex justify-between items-center mb-5">
+              <h4 className="font-semibold text-zinc-300 text-sm">Live Aid Activity</h4>
               <div className="flex items-center gap-1.5">
-                <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-                <span className="text-xs text-emerald-400">Live</span>
+                <span className="bg-emerald-500 rounded-full w-2 h-2 animate-pulse" />
+                <span className="text-emerald-400 text-xs">Live</span>
               </div>
             </div>
             <div className="space-y-3">
@@ -116,11 +116,11 @@ export function CommunityAidSection() {
                     initial={{ opacity: 0, x: 20 }}
                     animate={inView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.5, delay: 0.5 + i * 0.12 }}
-                    className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.02] border border-white/[0.04] hover:border-white/[0.08] transition-colors"
+                    className="flex justify-between items-center bg-white/[0.02] p-3.5 border border-white/[0.04] hover:border-white/[0.08] rounded-xl transition-colors"
                   >
                     <div className="min-w-0">
-                      <p className="text-sm text-zinc-200 font-medium truncate">{item.action}</p>
-                      <p className="text-[11px] text-zinc-500 mt-0.5">
+                      <p className="font-medium text-zinc-200 text-sm truncate">{item.action}</p>
+                      <p className="mt-0.5 text-[11px] text-zinc-500">
                         {item.user} · {item.time}
                       </p>
                     </div>
@@ -138,7 +138,7 @@ export function CommunityAidSection() {
   );
 }
 
-/* ─── Shelter & Resource Section ─── */
+
 const shelters = [
   {
     name: "Central Emergency Shelter",
@@ -183,43 +183,43 @@ export function ShelterSection() {
       <div className="absolute inset-0 bg-[#07070c]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_30%_50%,rgba(30,100,180,0.06),transparent)]" />
 
-      <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div ref={ref} className="z-10 relative mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-xs font-semibold uppercase tracking-wider mb-6">
+          <div className="inline-flex items-center gap-2 bg-cyan-500/10 mb-6 px-3 py-1 border border-cyan-500/20 rounded-full font-semibold text-cyan-400 text-xs uppercase tracking-wider">
             <MapPin className="w-3 h-3" />
             Resource Network
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+          <h2 className="font-black text-white text-3xl sm:text-4xl lg:text-5xl tracking-tight">
             Shelter &{" "}
-            <span className="bg-gradient-to-r from-cyan-400 to-blue-500 bg-clip-text text-transparent">
+            <span className="bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500 text-transparent">
               Resource Tracking
             </span>
           </h2>
-          <p className="mt-4 text-lg text-zinc-500 max-w-2xl mx-auto">
+          <p className="mx-auto mt-4 max-w-2xl text-zinc-500 text-lg">
             Real-time visibility into every shelter, supply center, and resource
             hub in the response network.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="gap-4 grid grid-cols-1 md:grid-cols-3">
           {shelters.map((shelter, i) => (
             <motion.div
               key={shelter.name}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + i * 0.12 }}
-              className="group p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.1] hover:bg-white/[0.03] transition-all duration-500"
+              className="group bg-white/[0.02] hover:bg-white/[0.03] p-6 border border-white/[0.06] hover:border-white/[0.1] rounded-2xl transition-all duration-500"
             >
-              {/* Header */}
-              <div className="flex items-start justify-between mb-4">
+
+              <div className="flex justify-between items-start mb-4">
                 <div>
-                  <h3 className="text-base font-bold text-white mb-1">{shelter.name}</h3>
-                  <p className="text-xs text-zinc-500 flex items-center gap-1">
+                  <h3 className="mb-1 font-bold text-white text-base">{shelter.name}</h3>
+                  <p className="flex items-center gap-1 text-zinc-500 text-xs">
                     <MapPin className="w-3 h-3" />
                     {shelter.location}
                   </p>
@@ -227,34 +227,33 @@ export function ShelterSection() {
                 <span className={`text-xs font-semibold ${shelter.statusColor}`}>{shelter.status}</span>
               </div>
 
-              {/* Capacity bar */}
+
               <div className="mb-4">
-                <div className="flex items-center justify-between mb-1.5">
+                <div className="flex justify-between items-center mb-1.5">
                   <span className="text-[11px] text-zinc-500">Occupancy</span>
-                  <span className="text-[11px] font-semibold text-zinc-400">{shelter.capacity}%</span>
+                  <span className="font-semibold text-[11px] text-zinc-400">{shelter.capacity}%</span>
                 </div>
-                <div className="w-full h-2 rounded-full bg-white/[0.05]">
+                <div className="bg-white/[0.05] rounded-full w-full h-2">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={inView ? { width: `${shelter.capacity}%` } : {}}
                     transition={{ duration: 1, delay: 0.5 + i * 0.1 }}
-                    className={`h-full rounded-full ${
-                      shelter.capacity > 75
+                    className={`h-full rounded-full ${shelter.capacity > 75
                         ? "bg-amber-500"
                         : "bg-emerald-500"
-                    }`}
+                      }`}
                   />
                 </div>
               </div>
 
-              {/* Resources */}
+
               <div className="flex flex-wrap gap-2">
                 {shelter.resources.map((res) => {
                   const Icon = resourceIcons[res] || Package;
                   return (
                     <span
                       key={res}
-                      className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-white/[0.04] border border-white/[0.06] text-[11px] text-zinc-400"
+                      className="inline-flex items-center gap-1.5 bg-white/[0.04] px-2.5 py-1 border border-white/[0.06] rounded-lg text-[11px] text-zinc-400"
                     >
                       <Icon className="w-3 h-3" />
                       {res}
@@ -266,12 +265,12 @@ export function ShelterSection() {
           ))}
         </div>
 
-        {/* Summary stats */}
+
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.6, delay: 0.7 }}
-          className="mt-8 grid grid-cols-2 sm:grid-cols-4 gap-3"
+          className="gap-3 grid grid-cols-2 sm:grid-cols-4 mt-8"
         >
           {[
             { label: "Active Shelters", value: "342", icon: Home },
@@ -281,11 +280,11 @@ export function ShelterSection() {
           ].map((stat, i) => (
             <div
               key={stat.label}
-              className="flex items-center gap-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.06]"
+              className="flex items-center gap-3 bg-white/[0.02] p-4 border border-white/[0.06] rounded-xl"
             >
               <stat.icon className="w-4 h-4 text-zinc-500" />
               <div>
-                <p className="text-lg font-bold text-white">{stat.value}</p>
+                <p className="font-bold text-white text-lg">{stat.value}</p>
                 <p className="text-[11px] text-zinc-500">{stat.label}</p>
               </div>
             </div>

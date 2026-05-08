@@ -15,7 +15,7 @@ import {
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
-/* ─── Why This Platform Section ─── */
+
 const reasons = [
   {
     icon: Heart,
@@ -70,43 +70,43 @@ export function WhySection() {
       <div className="absolute inset-0 bg-[#07070c]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_70%_40%_at_30%_50%,rgba(180,30,30,0.05),transparent)]" />
 
-      <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div ref={ref} className="z-10 relative mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-6">
+          <div className="inline-flex items-center gap-2 bg-emerald-500/10 mb-6 px-3 py-1 border border-emerald-500/20 rounded-full font-semibold text-emerald-400 text-xs uppercase tracking-wider">
             <Heart className="w-3 h-3" />
             Our Mission
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+          <h2 className="font-black text-white text-3xl sm:text-4xl lg:text-5xl tracking-tight">
             Why This Platform{" "}
-            <span className="bg-gradient-to-r from-emerald-400 to-cyan-500 bg-clip-text text-transparent">
+            <span className="bg-clip-text bg-gradient-to-r from-emerald-400 to-cyan-500 text-transparent">
               Matters
             </span>
           </h2>
-          <p className="mt-4 text-lg text-zinc-500 max-w-2xl mx-auto">
+          <p className="mx-auto mt-4 max-w-2xl text-zinc-500 text-lg">
             Because when disaster strikes, the difference between chaos and
             coordination can save thousands of lives.
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="gap-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
           {reasons.map((reason, i) => (
             <motion.div
               key={reason.title}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: i * 0.1 }}
-              className="group p-6 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.1] hover:bg-white/[0.04] transition-all duration-500"
+              className="group bg-white/[0.02] hover:bg-white/[0.04] p-6 border border-white/[0.06] hover:border-white/[0.1] rounded-2xl transition-all duration-500"
             >
               <div className={`inline-flex p-3 rounded-xl ${reason.bg} mb-4`}>
                 <reason.icon className={`w-5 h-5 ${reason.color}`} />
               </div>
-              <h3 className="text-lg font-bold text-white mb-2">{reason.title}</h3>
-              <p className="text-sm text-zinc-500 leading-relaxed group-hover:text-zinc-400 transition-colors">
+              <h3 className="mb-2 font-bold text-white text-lg">{reason.title}</h3>
+              <p className="text-zinc-500 group-hover:text-zinc-400 text-sm leading-relaxed transition-colors">
                 {reason.description}
               </p>
             </motion.div>
@@ -117,7 +117,7 @@ export function WhySection() {
   );
 }
 
-/* ─── Testimonials Section ─── */
+
 const testimonials = [
   {
     quote: "AntiQuake transformed how our district handles flood response. What used to take 6 hours now takes under 40 minutes.",
@@ -148,45 +148,45 @@ export function TestimonialsSection() {
       <div className="absolute inset-0 bg-[#07070c]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_50%_at_50%_50%,rgba(120,20,120,0.06),transparent)]" />
 
-      <div ref={ref} className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div ref={ref} className="z-10 relative mx-auto px-4 sm:px-6 lg:px-8 max-w-7xl">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
-          className="text-center mb-16"
+          className="mb-16 text-center"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/20 text-purple-400 text-xs font-semibold uppercase tracking-wider mb-6">
+          <div className="inline-flex items-center gap-2 bg-purple-500/10 mb-6 px-3 py-1 border border-purple-500/20 rounded-full font-semibold text-purple-400 text-xs uppercase tracking-wider">
             <Quote className="w-3 h-3" />
             Impact Stories
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight">
+          <h2 className="font-black text-white text-3xl sm:text-4xl lg:text-5xl tracking-tight">
             Trusted by Those Who{" "}
-            <span className="bg-gradient-to-r from-purple-400 to-pink-500 bg-clip-text text-transparent">
+            <span className="bg-clip-text bg-gradient-to-r from-purple-400 to-pink-500 text-transparent">
               Respond First
             </span>
           </h2>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
+        <div className="gap-4 sm:gap-6 grid grid-cols-1 lg:grid-cols-3">
           {testimonials.map((t, i) => (
             <motion.div
               key={i}
               initial={{ opacity: 0, y: 30 }}
               animate={inView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 + i * 0.15 }}
-              className="relative p-6 sm:p-8 rounded-2xl bg-white/[0.02] border border-white/[0.06] hover:border-white/[0.1] transition-all duration-500 group"
+              className="group relative bg-white/[0.02] p-6 sm:p-8 border border-white/[0.06] hover:border-white/[0.1] rounded-2xl transition-all duration-500"
             >
-              <Quote className="w-8 h-8 text-white/[0.06] mb-4" />
-              <blockquote className="text-sm sm:text-base text-zinc-300 leading-relaxed mb-6 group-hover:text-zinc-200 transition-colors">
+              <Quote className="mb-4 w-8 h-8 text-white/[0.06]" />
+              <blockquote className="mb-6 text-zinc-300 group-hover:text-zinc-200 text-sm sm:text-base leading-relaxed transition-colors">
                 &ldquo;{t.quote}&rdquo;
               </blockquote>
-              <div className="flex items-center gap-3 pt-4 border-t border-white/[0.06]">
-                <div className="w-10 h-10 rounded-full bg-gradient-to-br from-zinc-700 to-zinc-800 flex items-center justify-center text-xs font-bold text-white">
+              <div className="flex items-center gap-3 pt-4 border-white/[0.06] border-t">
+                <div className="flex justify-center items-center bg-gradient-to-br from-zinc-700 to-zinc-800 rounded-full w-10 h-10 font-bold text-white text-xs">
                   {t.author.split(" ").map(n => n[0]).join("")}
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-white">{t.author}</p>
-                  <p className="text-xs text-zinc-500">{t.role} · {t.org}</p>
+                  <p className="font-semibold text-white text-sm">{t.author}</p>
+                  <p className="text-zinc-500 text-xs">{t.role} · {t.org}</p>
                 </div>
               </div>
             </motion.div>
@@ -197,7 +197,7 @@ export function TestimonialsSection() {
   );
 }
 
-/* ─── CTA Section ─── */
+
 export function CTASection() {
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-100px" });
@@ -207,53 +207,53 @@ export function CTASection() {
       <div className="absolute inset-0 bg-[#07070c]" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_50%,rgba(180,30,30,0.1),transparent)]" />
 
-      <div ref={ref} className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+      <div ref={ref} className="z-10 relative mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl text-center">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}
           transition={{ duration: 0.7 }}
         >
-          <div className="p-8 sm:p-12 lg:p-16 rounded-3xl bg-gradient-to-b from-white/[0.04] to-white/[0.01] border border-white/[0.08] relative overflow-hidden">
-            {/* Decorative elements */}
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 h-px bg-gradient-to-r from-transparent via-red-500/50 to-transparent" />
-            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-64 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+          <div className="relative bg-gradient-to-b from-white/[0.04] to-white/[0.01] p-8 sm:p-12 lg:p-16 border border-white/[0.08] rounded-3xl overflow-hidden">
 
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-white tracking-tight mb-4">
+            <div className="top-0 left-1/2 absolute bg-gradient-to-r from-transparent via-red-500/50 to-transparent w-64 h-px -translate-x-1/2" />
+            <div className="bottom-0 left-1/2 absolute bg-gradient-to-r from-transparent via-purple-500/30 to-transparent w-64 h-px -translate-x-1/2" />
+
+            <h2 className="mb-4 font-black text-white text-3xl sm:text-4xl lg:text-5xl tracking-tight">
               Ready to{" "}
-              <span className="bg-gradient-to-r from-red-400 via-red-500 to-red-600 bg-clip-text text-transparent">
+              <span className="bg-clip-text bg-gradient-to-r from-red-400 via-red-500 to-red-600 text-transparent">
                 Save Lives
               </span>
               ?
             </h2>
-            <p className="text-lg text-zinc-400 max-w-xl mx-auto mb-8">
+            <p className="mx-auto mb-8 max-w-xl text-zinc-400 text-lg">
               Join the network of disaster response teams, relief organizations,
               and communities using AntiQuake to coordinate when it matters most.
             </p>
 
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <div className="flex sm:flex-row flex-col justify-center items-center gap-4">
               <Button
                 asChild
                 size="lg"
-                className="bg-red-600 hover:bg-red-500 text-white shadow-xl shadow-red-900/25 hover:shadow-red-800/40 h-13 px-8 text-base font-semibold rounded-xl transition-all"
+                className="bg-red-600 hover:bg-red-500 shadow-red-900/25 shadow-xl hover:shadow-red-800/40 px-8 rounded-xl h-13 font-semibold text-white text-base transition-all"
               >
                 <Link href="/signup">
                   Get Started Free
-                  <ArrowRight className="w-4 h-4 ml-2" />
+                  <ArrowRight className="ml-2 w-4 h-4" />
                 </Link>
               </Button>
               <Button
                 asChild
                 variant="outline"
                 size="lg"
-                className="border-white/10 bg-white/[0.03] hover:bg-white/[0.06] text-zinc-200 h-13 px-8 text-base rounded-xl backdrop-blur-sm"
+                className="bg-white/[0.03] hover:bg-white/[0.06] backdrop-blur-sm px-8 border-white/10 rounded-xl h-13 text-zinc-200 text-base"
               >
                 <Link href="/login">Open Dashboard</Link>
               </Button>
             </div>
 
-            {/* Trust row */}
-            <div className="mt-10 pt-8 border-t border-white/[0.06]">
-              <div className="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-xs text-zinc-500">
+
+            <div className="mt-10 pt-8 border-white/[0.06] border-t">
+              <div className="flex flex-wrap justify-center items-center gap-x-8 gap-y-3 text-zinc-500 text-xs">
                 <span className="flex items-center gap-1.5">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
                   End-to-end encrypted
@@ -275,7 +275,7 @@ export function CTASection() {
   );
 }
 
-/* ─── Footer ─── */
+
 const footerLinks = {
   Platform: ["Features", "Analytics", "Integrations", "Security"],
   Resources: ["Documentation", "API Reference", "Community", "Status"],
@@ -285,32 +285,32 @@ const footerLinks = {
 
 export function LandingFooter() {
   return (
-    <footer id="help" className="relative border-t border-white/[0.06] bg-[#07070c]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8">
-          {/* Brand */}
+    <footer id="help" className="relative bg-[#07070c] border-white/[0.06] border-t">
+      <div className="mx-auto px-4 sm:px-6 lg:px-8 py-16 max-w-7xl">
+        <div className="gap-8 grid grid-cols-2 md:grid-cols-5">
+
           <div className="col-span-2 md:col-span-1">
             <div className="flex items-center gap-2 mb-4">
-              <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-gradient-to-br from-red-600 to-red-800">
+              <div className="flex justify-center items-center bg-gradient-to-br from-red-600 to-red-800 rounded-lg w-8 h-8">
                 <ShieldCheck className="w-4 h-4 text-white" />
               </div>
-              <span className="text-base font-bold text-white">
-                Anti<span className="text-red-400 font-medium">Quake</span>
+              <span className="font-bold text-white text-base">
+                Anti<span className="font-medium text-red-400">Quake</span>
               </span>
             </div>
-            <p className="text-xs text-zinc-500 leading-relaxed max-w-[200px]">
+            <p className="max-w-[200px] text-zinc-500 text-xs leading-relaxed">
               Building resilience through technology. Coordinating disaster response for a safer world.
             </p>
           </div>
 
-          {/* Link columns */}
+
           {Object.entries(footerLinks).map(([title, links]) => (
             <div key={title}>
-              <h4 className="text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-4">{title}</h4>
+              <h4 className="mb-4 font-semibold text-zinc-300 text-xs uppercase tracking-wider">{title}</h4>
               <ul className="space-y-2.5">
                 {links.map((link) => (
                   <li key={link}>
-                    <a href="#" className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors">
+                    <a href="#" className="text-zinc-500 hover:text-zinc-300 text-xs transition-colors">
                       {link}
                     </a>
                   </li>
@@ -320,14 +320,14 @@ export function LandingFooter() {
           ))}
         </div>
 
-        {/* Bottom bar */}
-        <div className="mt-12 pt-6 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between gap-4">
-          <p className="text-xs text-zinc-600">
+
+        <div className="flex sm:flex-row flex-col justify-between items-center gap-4 mt-12 pt-6 border-white/[0.06] border-t">
+          <p className="text-zinc-600 text-xs">
             © {new Date().getFullYear()} AntiQuake. All rights reserved.
           </p>
           <div className="flex items-center gap-1.5">
-            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-xs text-emerald-500/80 font-medium">All systems operational</span>
+            <span className="bg-emerald-500 rounded-full w-2 h-2 animate-pulse" />
+            <span className="font-medium text-emerald-500/80 text-xs">All systems operational</span>
           </div>
         </div>
       </div>
