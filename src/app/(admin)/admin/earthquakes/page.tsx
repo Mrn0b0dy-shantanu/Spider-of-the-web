@@ -60,9 +60,6 @@ export default function EarthquakeRadar() {
 
   useEffect(() => {
 
-
-
-
     if (!userLocation && !isLocating && !eqId) {
       setIsLocating(true);
       navigator.geolocation.getCurrentPosition(
