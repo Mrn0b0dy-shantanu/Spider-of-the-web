@@ -9,15 +9,11 @@ import {
   Activity,
   Home,
   Users,
-  Building,
   BarChart3,
-  Bell,
   ShieldAlert,
   Settings,
   ChevronRight,
-  AlertCircle,
   LogOut,
-  Newspaper
 } from "lucide-react"
 import { cn } from "@/lib/utils"
 import { signOut } from "@/app/actions/auth"
@@ -25,15 +21,11 @@ import { signOut } from "@/app/actions/auth"
 const adminNavItems = [
   { name: "Command Center", href: "/admin/dashboard", icon: LayoutDashboard },
   { name: "Disaster Requests", href: "/admin/requests", icon: FileText },
-  { name: "Earthquakes", href: "/admin/earthquakes", icon: AlertCircle },
-  { name: "Supply Inventory", href: "/admin/supplies", icon: Box },
   { name: "Active Incidents", href: "/admin/incidents", icon: Activity },
+  { name: "Supply Inventory", href: "/admin/supplies", icon: Box },
   { name: "Shelters & Camps", href: "/admin/shelters", icon: Home },
-  { name: "Field Personnel", href: "/admin/personnel", icon: Users },
-  { name: "Partner Orgs", href: "/admin/organizations", icon: Building },
+  { name: "Personnel & Partners", href: "/admin/personnel", icon: Users },
   { name: "Reports & Data", href: "/admin/reports", icon: BarChart3 },
-  { name: "Notifications", href: "/admin/notifications", icon: Bell },
-  { name: "News Verification", href: "/admin/news", icon: Newspaper },
   { name: "Community Monitor", href: "/admin/community", icon: Users },
   { name: "User Management", href: "/admin/users", icon: Users },
 ]

@@ -1,15 +1,22 @@
-import { getPersonnel } from "@/app/actions/admin"
-import AdminPersonnelClient from "./PersonnelClient"
+import { getPersonnel, getOrganizations } from "@/app/actions/admin"
+import AdminPersonnelAndPartnersClient from "./PersonnelClient"
 import { RealtimeRefresh } from "@/components/shared/RealtimeRefresh"
 
-export const metadata = { title: "Personnel | AntiQuake Admin" }
+export const metadata = { title: "Personnel & Partner Organizations | AntiQuake Admin" }
 
 export default async function AdminPersonnelPage() {
-  const personnel = await getPersonnel()
+  const [personnel, organizations] = await Promise.all([
+    getPersonnel(),
+    getOrganizations(),
+  ])
+
   return (
     <>
-      <RealtimeRefresh tables={["personnel"]} />
-      <AdminPersonnelClient personnel={personnel} />
+      <RealtimeRefresh tables={["personnel", "organizations"]} />
+      <AdminPersonnelAndPartnersClient
+        personnel={personnel}
+        organizations={organizations}
+      />
     </>
   )
 }

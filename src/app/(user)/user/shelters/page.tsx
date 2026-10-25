@@ -1,9 +1,5 @@
-import { getShelters } from "@/app/actions/shelters"
-import UserSheltersClient from "./SheltersClient"
+import { redirect } from "next/navigation"
 
-export const metadata = { title: "Shelters | AntiQuake" }
-
-export default async function UserSheltersPage() {
-  const shelters = await getShelters()
-  return <UserSheltersClient shelters={shelters} />
+export default function UserSheltersRedirect() {
+  redirect("/user/resources")
 }

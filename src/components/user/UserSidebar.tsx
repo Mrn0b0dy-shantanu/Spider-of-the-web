@@ -6,16 +6,13 @@ import {
   LayoutDashboard,
   FilePlus,
   FileText,
-  Home,
   BookOpen,
-  Bell,
   User,
   ShieldAlert,
   ChevronRight,
   Heart,
   LogOut,
   Map,
-  Newspaper,
   Users
 } from "lucide-react"
 import { cn } from "@/lib/utils"
@@ -25,11 +22,8 @@ const userNavItems = [
   { name: "Dashboard", href: "/user/dashboard", icon: LayoutDashboard },
   { name: "New Request", href: "/user/create-request", icon: FilePlus },
   { name: "Earthquake Map", href: "/user/earthquake-map", icon: Map },
-  { name: "Shelters", href: "/user/shelters", icon: Home },
   { name: "My Requests", href: "/user/requests", icon: FileText },
   { name: "Emergency Resources", href: "/user/resources", icon: BookOpen },
-  { name: "Notifications", href: "/user/notifications", icon: Bell },
-  { name: "Verified News", href: "/user/news", icon: Newspaper },
   { name: "Aid Network", href: "/user/community", icon: Users },
   { name: "Profile", href: "/user/profile", icon: User },
 ]

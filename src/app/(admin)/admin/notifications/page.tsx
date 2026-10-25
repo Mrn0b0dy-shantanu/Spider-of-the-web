@@ -1,9 +1,5 @@
-import { getAnnouncements } from "@/app/actions/notifications"
-import AdminNotificationsClient from "./NotificationsClient"
+import { redirect } from "next/navigation"
 
-export const metadata = { title: "Announcements | AntiQuake Admin" }
-
-export default async function AdminNotificationsPage() {
-  const announcements = await getAnnouncements()
-  return <AdminNotificationsClient announcements={announcements} />
+export default function AdminNotificationsRedirect() {
+  redirect("/admin/dashboard")
 }

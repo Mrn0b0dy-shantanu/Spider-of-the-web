@@ -1,9 +1,5 @@
-import { getNotifications } from "@/app/actions/notifications"
-import UserNotificationsClient from "./NotificationsClient"
+import { redirect } from "next/navigation"
 
-export const metadata = { title: "Notifications | AntiQuake" }
-
-export default async function UserNotificationsPage() {
-  const notifications = await getNotifications()
-  return <UserNotificationsClient notifications={notifications} />
+export default function UserNotificationsRedirect() {
+  redirect("/user/dashboard")
 }

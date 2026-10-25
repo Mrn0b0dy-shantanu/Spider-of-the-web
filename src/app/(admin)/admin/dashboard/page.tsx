@@ -7,7 +7,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   AlertTriangle, Activity, Box, Users, Home, FileText,
-  TrendingUp, Clock, ChevronRight, Bell
+  TrendingUp, Clock, ChevronRight
 } from "lucide-react"
 import Link from "next/link"
 import { formatDate } from "@/lib/utils"
@@ -37,12 +37,11 @@ export default async function AdminDashboard() {
         <p className="mt-1 text-muted-foreground">Real-time disaster management operations overview.</p>
       </div>
 
-
       <div className="gap-4 grid md:grid-cols-2 lg:grid-cols-4">
         <StatsCard
           title="Pending Requests"
           value={stats.pendingRequests}
-          description="Awaiting admin action"
+          description="Pending review in system"
           icon={Clock}
           iconClassName="text-yellow-500"
         />
@@ -88,7 +87,7 @@ export default async function AdminDashboard() {
           icon={FileText}
         />
         <StatsCard
-          title="Approval Rate"
+          title="Processed Requests"
           value={`${stats.totalRequests > 0 ? Math.round((stats.totalRequests - stats.pendingRequests) / stats.totalRequests * 100) : 0}%`}
           description="Requests processed"
           icon={TrendingUp}
@@ -96,17 +95,14 @@ export default async function AdminDashboard() {
         />
       </div>
 
-
       <div className="gap-6 grid lg:grid-cols-7">
-
         <DashboardCharts categoryData={categoryData} />
-
 
         <Card className="lg:col-span-4">
           <CardHeader className="flex flex-row justify-between items-center">
             <div>
               <CardTitle>Recent Disaster Requests</CardTitle>
-              <CardDescription>Latest submissions from civilians requiring review</CardDescription>
+              <CardDescription>Latest submissions from civilians</CardDescription>
             </div>
             <Button asChild variant="outline" size="sm">
               <Link href="/admin/requests">
@@ -146,49 +142,30 @@ export default async function AdminDashboard() {
         </Card>
       </div>
 
-
       <div className="gap-6 grid md:grid-cols-2 lg:grid-cols-3">
         <Card className="md:col-span-2">
           <CardHeader>
-            <CardTitle className="flex items-center gap-2">
-              <Bell className="w-5 h-5 text-destructive" />
-              Quick Emergency Broadcast
-            </CardTitle>
-            <CardDescription>Send an urgent alert to all registered citizens.</CardDescription>
+            <CardTitle className="text-lg">Operational Architecture</CardTitle>
+            <CardDescription>Emergency coordination infrastructure status and response channels.</CardDescription>
           </CardHeader>
-          <CardContent>
-            <form action={async (formData) => {
-              "use server"
-              const { createAnnouncement } = await import("@/app/actions/notifications")
-              await createAnnouncement(formData)
-            }} className="space-y-4">
-              <div className="gap-2 grid">
-                <input
-                  name="title"
-                  placeholder="Alert Title (e.g. Flood Warning)"
-                  className="flex bg-background file:bg-transparent disabled:opacity-50 px-3 py-2 border border-input file:border-0 rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ring-offset-background focus-visible:ring-offset-2 w-full h-10 file:font-medium placeholder:text-muted-foreground text-sm file:text-sm disabled:cursor-not-allowed"
-                  required
-                />
+          <CardContent className="space-y-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 pt-1">
+              <div className="p-3.5 rounded-lg border bg-muted/20">
+                <p className="text-xs text-muted-foreground font-medium">Relief Shelters</p>
+                <p className="text-xl font-bold mt-1 text-primary">{stats.activeShelters} Active</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">Operational relief camps</p>
               </div>
-              <div className="gap-2 grid">
-                <textarea
-                  name="message"
-                  placeholder="Detailed emergency instructions..."
-                  className="flex bg-background disabled:opacity-50 px-3 py-2 border border-input rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring ring-offset-background focus-visible:ring-offset-2 w-full min-h-[80px] placeholder:text-muted-foreground text-sm disabled:cursor-not-allowed"
-                  required
-                />
+              <div className="p-3.5 rounded-lg border bg-muted/20">
+                <p className="text-xs text-muted-foreground font-medium">Field Personnel</p>
+                <p className="text-xl font-bold mt-1 text-blue-500">{stats.deployedPersonnel} Deployed</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">Response workforce</p>
               </div>
-              <div className="flex justify-between items-center">
-                <select name="priority" className="flex bg-background px-3 py-2 border border-input rounded-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring h-10 text-sm">
-                  <option value="medium">Medium Priority</option>
-                  <option value="high">High Priority</option>
-                  <option value="critical">CRITICAL ALERT</option>
-                </select>
-                <Button type="submit" variant="destructive">
-                  <Bell className="mr-2 w-4 h-4" /> Send Broadcast
-                </Button>
+              <div className="p-3.5 rounded-lg border bg-muted/20">
+                <p className="text-xs text-muted-foreground font-medium">Supply Monitor</p>
+                <p className="text-xl font-bold mt-1 text-destructive">{stats.lowStockCount} Low Stock</p>
+                <p className="text-[11px] text-muted-foreground mt-0.5">Inventory alerts</p>
               </div>
-            </form>
+            </div>
           </CardContent>
         </Card>
 
@@ -213,7 +190,6 @@ export default async function AdminDashboard() {
               <p className="font-bold text-[10px] text-muted-foreground uppercase tracking-tight">External Data Partners</p>
               <div className="flex flex-col gap-1">
                 <span className="flex justify-between text-[10px]">Seismic Data: <span className="font-semibold text-foreground">USGS FDSN API</span></span>
-                <span className="flex justify-between text-[10px]">News Verification: <span className="font-semibold text-foreground">Drishtikon.life</span></span>
               </div>
             </div>
           </CardContent>

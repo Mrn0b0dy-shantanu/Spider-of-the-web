@@ -1,5 +1,4 @@
 import {
-  Bell,
   Search,
   User,
   LogOut,
@@ -49,10 +48,6 @@ export function Header({ user, sidebarTrigger }: HeaderProps) {
       </div>
 
       <div className="flex items-center gap-2 md:gap-4">
-        <Button variant="ghost" size="icon" className="relative">
-          <Bell className="w-5 h-5" />
-          <span className="top-1.5 right-1.5 absolute bg-destructive border-2 border-background rounded-full w-2 h-2"></span>
-        </Button>
 
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

@@ -112,7 +112,7 @@ export default function AdminIncidentsClient({ incidents: initialIncidents }: { 
                   </TableCell>
                   <TableCell className="text-right">
                     <Link
-                      href={`/admin/earthquakes?id=${incident.id}`}
+                      href={`/user/earthquake-map?id=${incident.id}`}
                       className="inline-flex items-center gap-1.5 font-medium text-primary text-sm hover:underline"
                     >
                       <MapIcon className="w-3.5 h-3.5" />

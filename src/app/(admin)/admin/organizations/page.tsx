@@ -1,9 +1,5 @@
-import { getOrganizations } from "@/app/actions/admin"
-import AdminOrganizationsClient from "./OrganizationsClient"
+import { redirect } from "next/navigation"
 
-export const metadata = { title: "Organizations | AntiQuake Admin" }
-
-export default async function AdminOrganizationsPage() {
-  const organizations = await getOrganizations()
-  return <AdminOrganizationsClient organizations={organizations} />
+export default function AdminOrganizationsRedirect() {
+  redirect("/admin/personnel")
 }

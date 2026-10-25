@@ -1,7 +1,5 @@
 import { getUserRequests } from "@/app/actions/requests"
 import { getAnnouncements } from "@/app/actions/notifications"
-import { getShelters } from "@/app/actions/shelters"
-import { getUnreadNotificationsCount } from "@/app/actions/notifications"
 import { getEmergencyContacts } from "@/app/actions/admin"
 import { RealtimeRefresh } from "@/components/shared/RealtimeRefresh"
 import { StatsCard } from "@/components/shared/StatsCard"
@@ -10,8 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import {
-  FileText, Home, Bell, Phone, FilePlus,
-  ChevronRight, AlertCircle, Info, MapPin
+  FileText, BookOpen, Phone, FilePlus,
+  ChevronRight, AlertCircle, Info, Clock
 } from "lucide-react"
 import Link from "next/link"
 import { formatDate } from "@/lib/utils"
@@ -19,11 +17,9 @@ import { formatDate } from "@/lib/utils"
 export const metadata = { title: "User Dashboard | AntiQuake" }
 
 export default async function UserDashboard() {
-  const [requests, announcements, shelters, unreadCount, contacts] = await Promise.all([
+  const [requests, announcements, contacts] = await Promise.all([
     getUserRequests(),
     getAnnouncements(),
-    getShelters(),
-    getUnreadNotificationsCount(),
     getEmergencyContacts(),
   ])
 
@@ -32,7 +28,7 @@ export default async function UserDashboard() {
 
   return (
     <div className="space-y-8">
-      <RealtimeRefresh tables={["notifications", "announcements", "disaster_requests", "shelters"]} />
+      <RealtimeRefresh tables={["announcements", "disaster_requests"]} />
       <div className="flex sm:flex-row flex-col justify-between sm:items-center gap-4">
         <div>
           <h1 className="font-bold text-3xl tracking-tight">Welcome to AntiQuake</h1>
@@ -45,14 +41,20 @@ export default async function UserDashboard() {
         </Button>
       </div>
 
-
       <div className="gap-4 grid md:grid-cols-3">
         <StatsCard
-          title="My Active Requests"
-          value={pendingCount + approvedCount}
-          description="Requests currently in system"
+          title="Total Requests"
+          value={requests.length}
+          description="All submitted requests"
           icon={FileText}
           iconClassName="text-primary"
+        />
+        <StatsCard
+          title="Pending Requests"
+          value={pendingCount}
+          description="Awaiting emergency review"
+          icon={Clock}
+          iconClassName="text-yellow-500"
         />
         <StatsCard
           title="Approved Requests"
@@ -60,13 +62,6 @@ export default async function UserDashboard() {
           description="Relief operations confirmed"
           icon={AlertCircle}
           iconClassName="text-green-500"
-        />
-        <StatsCard
-          title="Unread Notifications"
-          value={unreadCount}
-          description="Updates on your requests"
-          icon={Bell}
-          iconClassName="text-blue-500"
         />
       </div>
 
@@ -139,30 +134,18 @@ export default async function UserDashboard() {
           <Card>
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-lg">
-                <Home className="w-5 h-5 text-muted-foreground" />
-                Active Shelters
+                <BookOpen className="w-5 h-5 text-primary" />
+                Emergency Resources & Shelters
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {shelters.slice(0, 3).map((shelter: any) => (
-                <div key={shelter.id} className="space-y-1">
-                  <div className="flex justify-between items-center">
-                    <span className="font-medium text-sm">{shelter.name}</span>
-                    <Badge variant="outline" className="text-[10px] capitalize">{shelter.status}</Badge>
-                  </div>
-                  <div className="flex items-center gap-1 text-muted-foreground text-xs">
-                    <MapPin className="w-3 h-3" /> {shelter.location}
-                  </div>
-                  <div className="bg-muted mt-2 rounded-full w-full h-1.5">
-                    <div
-                      className="bg-primary rounded-full h-1.5"
-                      style={{ width: `${Math.min(100, (shelter.current_occupancy / shelter.capacity) * 100)}%` }}
-                    />
-                  </div>
-                </div>
-              ))}
-              <Button asChild variant="outline" className="mt-2 w-full">
-                <Link href="/user/shelters">Find Nearest Shelter</Link>
+              <p className="text-muted-foreground text-sm">
+                Access verified emergency shelters, real-time camp occupancy, safety protocols, and 24/7 emergency hotlines.
+              </p>
+              <Button asChild variant="outline" className="w-full">
+                <Link href="/user/resources">
+                  View Emergency Resources <ChevronRight className="ml-1 w-4 h-4" />
+                </Link>
               </Button>
             </CardContent>
           </Card>
@@ -221,10 +204,6 @@ export default async function UserDashboard() {
           <div className="flex flex-col">
             <span className="opacity-60 text-[8px]">Seismic Data Source</span>
             <span>USGS FDSN API</span>
-          </div>
-          <div className="flex flex-col">
-            <span className="opacity-60 text-[8px]">Truth Verification</span>
-            <span>Drishtikon.life</span>
           </div>
         </div>
         <p className="opacity-60">&copy; 2026 AntiQuake Disaster Management</p>
