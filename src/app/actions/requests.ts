@@ -32,6 +32,8 @@ export async function createDisasterRequest(formData: FormData) {
 
   revalidatePath("/user/requests")
   revalidatePath("/admin/requests")
+  revalidatePath("/coordinator/pending")
+  revalidatePath("/coordinator/dashboard")
   return { success: true }
 }
 
@@ -86,6 +88,10 @@ export async function updateRequestStatus(
 
   revalidatePath("/admin/requests")
   revalidatePath("/user/requests")
+  revalidatePath("/coordinator/dashboard")
+  revalidatePath("/coordinator/pending")
+  revalidatePath("/coordinator/active")
+  revalidatePath(`/coordinator/requests/${id}`)
   return { success: true }
 }
 

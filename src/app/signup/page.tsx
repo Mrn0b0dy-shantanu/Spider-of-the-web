@@ -69,11 +69,12 @@ export default function SignupPage() {
                   </SelectTrigger>
                   <SelectContent>
                     <SelectItem value="user">Citizen (Need Help / Volunteer)</SelectItem>
+                    <SelectItem value="request_coordinator">Request Coordinator (Disaster Response)</SelectItem>
                     <SelectItem value="admin">Admin (Operational Personnel)</SelectItem>
                   </SelectContent>
                 </Select>
                 <p className="text-[10px] text-muted-foreground italic">
-                  Note: Admin roles may require additional verification after registration.
+                  Note: Coordinator and Admin roles are provisioned for disaster management operations.
                 </p>
               </div>
             </CardContent>

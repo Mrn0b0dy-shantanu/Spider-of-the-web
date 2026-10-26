@@ -18,6 +18,7 @@ import {
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { signOut } from "@/app/actions/auth"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
+import Link from "next/link"
 
 interface HeaderProps {
   user?: {
@@ -68,13 +69,33 @@ export function Header({ user, sidebarTrigger }: HeaderProps) {
               </div>
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <User className="mr-2 w-4 h-4" />
-              <span>Profile</span>
+            <DropdownMenuItem asChild>
+              <Link
+                href={
+                  user?.role === "request_coordinator" || user?.role === "coordinator"
+                    ? "/coordinator/profile"
+                    : "/user/profile"
+                }
+                className="cursor-pointer"
+              >
+                <User className="mr-2 w-4 h-4" />
+                <span>Profile</span>
+              </Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Settings className="mr-2 w-4 h-4" />
-              <span>Settings</span>
+            <DropdownMenuItem asChild>
+              <Link
+                href={
+                  user?.role === "request_coordinator" || user?.role === "coordinator"
+                    ? "/coordinator/settings"
+                    : user?.role === "admin"
+                    ? "/admin/settings"
+                    : "/user/profile"
+                }
+                className="cursor-pointer"
+              >
+                <Settings className="mr-2 w-4 h-4" />
+                <span>Settings</span>
+              </Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <form action={signOut}>

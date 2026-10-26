@@ -24,7 +24,11 @@ export default async function AdminLayout({
     .eq("id", user.id)
     .single()
 
-  if (profile?.role !== "admin") {
+  const role = user.user_metadata?.app_role || profile?.role || user.user_metadata?.role
+  if (role !== "admin") {
+    if (role === "request_coordinator" || role === "coordinator") {
+      redirect("/coordinator/dashboard")
+    }
     redirect("/user/dashboard")
   }
 

@@ -5,7 +5,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { formatDate } from "@/lib/utils"
-import { Mail, Phone, MapPin, UserCheck, Shield } from "lucide-react"
+import { Mail, Phone, MapPin, UserCheck, Shield, ClipboardCheck } from "lucide-react"
 
 export default function AdminUsersClient({ users }: { users: any[] }) {
   return (
@@ -43,10 +43,22 @@ export default function AdminUsersClient({ users }: { users: any[] }) {
                     </div>
                   </TableCell>
                   <TableCell>
-                    <Badge variant={user.role === "admin" ? "default" : "secondary"} className="capitalize">
-                      {user.role === "admin" ? <Shield className="h-3 w-3 mr-1" /> : <UserCheck className="h-3 w-3 mr-1" />}
-                      {user.role}
-                    </Badge>
+                    {user.role === "admin" ? (
+                      <Badge variant="default" className="capitalize">
+                        <Shield className="h-3 w-3 mr-1" />
+                        Admin
+                      </Badge>
+                    ) : user.role === "request_coordinator" || user.role === "coordinator" ? (
+                      <Badge variant="outline" className="bg-blue-500/15 text-blue-500 border-blue-500/20 capitalize font-medium">
+                        <ClipboardCheck className="h-3 w-3 mr-1" />
+                        Coordinator
+                      </Badge>
+                    ) : (
+                      <Badge variant="secondary" className="capitalize">
+                        <UserCheck className="h-3 w-3 mr-1" />
+                        {user.role || "Citizen"}
+                      </Badge>
+                    )}
                   </TableCell>
                   <TableCell>
                     <div className="space-y-1">

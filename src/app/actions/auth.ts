@@ -20,16 +20,29 @@ export async function signIn(formData: FormData) {
   }
 
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("role")
-    .single()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
 
-  if (profile?.role === "admin") {
-    redirect("/admin/dashboard")
-  } else {
-    redirect("/user/dashboard")
+  if (user) {
+    const { data: profile } = await supabase
+      .from("profiles")
+      .select("role")
+      .eq("id", user.id)
+      .single()
+
+    const role = user.user_metadata?.app_role || profile?.role || user.user_metadata?.role
+
+    if (role === "admin") {
+      redirect("/admin/dashboard")
+    } else if (role === "request_coordinator" || role === "coordinator") {
+      redirect("/coordinator/dashboard")
+    } else {
+      redirect("/user/dashboard")
+    }
   }
+
+  redirect("/user/dashboard")
 }
 
 export async function signUp(formData: FormData) {
@@ -38,7 +51,8 @@ export async function signUp(formData: FormData) {
   const email = formData.get("email") as string
   const password = formData.get("password") as string
   const fullName = formData.get("fullName") as string
-  const role = formData.get("role") as string || "user"
+  const rawRole = (formData.get("role") as string) || "user"
+  const isCoordinator = rawRole === "request_coordinator" || rawRole === "coordinator"
 
   const { error } = await supabase.auth.signUp({
     email,
@@ -46,7 +60,8 @@ export async function signUp(formData: FormData) {
     options: {
       data: {
         full_name: fullName,
-        role: role,
+        role: isCoordinator ? "user" : rawRole,
+        app_role: isCoordinator ? "request_coordinator" : rawRole,
       },
     },
   })

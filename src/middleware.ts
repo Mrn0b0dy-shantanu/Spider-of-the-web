@@ -54,17 +54,39 @@ export async function middleware(request: NextRequest) {
       .eq("id", user.id)
       .single()
 
-    const role = profile?.role
-
+    const role = user.user_metadata?.app_role || profile?.role || user.user_metadata?.role
+    const isCoordinator = role === "request_coordinator" || role === "coordinator"
+    const isAdmin = role === "admin"
 
     if (url.pathname.startsWith("/login") || url.pathname.startsWith("/signup")) {
-      if (role === "admin") {
-        url.pathname = "/user/dashboard"
+      if (isAdmin) {
+        url.pathname = "/admin/dashboard"
+        return NextResponse.redirect(url)
+      } else if (isCoordinator) {
+        url.pathname = "/coordinator/dashboard"
         return NextResponse.redirect(url)
       } else {
         url.pathname = "/user/dashboard"
         return NextResponse.redirect(url)
       }
+    }
+
+    // Role-based protection: Request Coordinators cannot access admin features
+    if (url.pathname.startsWith("/admin") && !isAdmin) {
+      url.pathname = isCoordinator ? "/coordinator/dashboard" : "/user/dashboard"
+      return NextResponse.redirect(url)
+    }
+
+    // Protect /coordinator routes from regular users
+    if (url.pathname.startsWith("/coordinator") && !isCoordinator && !isAdmin) {
+      url.pathname = "/user/dashboard"
+      return NextResponse.redirect(url)
+    }
+
+    // Keep Request Coordinator in dedicated dashboard if accessing civilian user routes
+    if (url.pathname.startsWith("/user") && isCoordinator) {
+      url.pathname = "/coordinator/dashboard"
+      return NextResponse.redirect(url)
     }
 
 
