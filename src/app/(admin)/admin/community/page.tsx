@@ -6,7 +6,7 @@ import { Users, ShieldAlert, BarChart3, AlertCircle } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 
-export const metadata = { title: "Community Monitoring | AntiQuake Admin" }
+export const metadata = { title: "Community Monitoring | FLARE Admin" }
 
 export default async function AdminCommunityPage() {
   const [initialRequests, initialOffers, commStats, dashboardStats] = await Promise.all([

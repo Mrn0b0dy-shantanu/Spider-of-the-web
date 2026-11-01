@@ -14,7 +14,7 @@ import {
 import Link from "next/link"
 import { formatDate } from "@/lib/utils"
 
-export const metadata = { title: "User Dashboard | AntiQuake" }
+export const metadata = { title: "User Dashboard | FLARE" }
 
 export default async function UserDashboard() {
   const [requests, announcements, contacts] = await Promise.all([
@@ -31,7 +31,7 @@ export default async function UserDashboard() {
       <RealtimeRefresh tables={["announcements", "disaster_requests"]} />
       <div className="flex sm:flex-row flex-col justify-between sm:items-center gap-4">
         <div>
-          <h1 className="font-bold text-3xl tracking-tight">Welcome to AntiQuake</h1>
+          <h1 className="font-bold text-3xl tracking-tight">Welcome to FLARE</h1>
           <p className="mt-1 text-muted-foreground">Access emergency support and track your relief requests.</p>
         </div>
         <Button asChild size="lg" className="shadow-lg px-6 h-12">
@@ -206,7 +206,7 @@ export default async function UserDashboard() {
             <span>USGS FDSN API</span>
           </div>
         </div>
-        <p className="opacity-60">&copy; 2026 AntiQuake Disaster Management</p>
+        <p className="opacity-60">&copy; 2026 FLARE Disaster Management</p>
       </footer>
     </div>
   )

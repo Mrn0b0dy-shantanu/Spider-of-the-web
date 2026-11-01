@@ -103,7 +103,7 @@ export default function AnalyticsSection() {
                 <div className="bg-amber-500/60 rounded-full w-3 h-3" />
                 <div className="bg-emerald-500/60 rounded-full w-3 h-3" />
               </div>
-              <span className="font-mono text-zinc-500 text-xs">operations-dashboard.antiquake.app</span>
+              <span className="font-mono text-zinc-500 text-xs">operations-dashboard.flare.app</span>
             </div>
             <div className="flex items-center gap-2">
               <span className="bg-emerald-500 rounded-full w-2 h-2 animate-pulse" />

@@ -37,7 +37,7 @@ export function CoordinatorSidebar({ className, pendingCount }: CoordinatorSideb
         <Link href="/coordinator/dashboard" className="flex items-center gap-2 font-bold text-xl tracking-tight">
           <ShieldAlert className="w-7 h-7 text-primary" />
           <div className="flex flex-col">
-            <span className="leading-none">AntiQuake</span>
+            <span className="leading-none">FLARE</span>
             <span className="text-[10px] text-muted-foreground font-mono tracking-widest uppercase">Coordinator</span>
           </div>
         </Link>

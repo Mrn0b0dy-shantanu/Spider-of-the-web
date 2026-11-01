@@ -32,7 +32,7 @@ export default function LoginPage() {
           <div className="bg-primary shadow-primary/20 shadow-xl p-3 rounded-2xl">
             <ShieldAlert className="w-8 h-8 text-primary-foreground" />
           </div>
-          <h1 className="font-black text-3xl tracking-tight">AntiQuake</h1>
+          <h1 className="font-black text-3xl tracking-tight">FLARE</h1>
           <p className="text-muted-foreground">National Disaster Coordination & Relief Platform</p>
         </div>
 

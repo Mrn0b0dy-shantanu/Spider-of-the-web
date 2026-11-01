@@ -2,7 +2,7 @@ import { getProfile } from "@/app/actions/profile"
 import UserProfileClient from "./ProfileClient"
 import { redirect } from "next/navigation"
 
-export const metadata = { title: "My Profile | AntiQuake" }
+export const metadata = { title: "My Profile | FLARE" }
 
 export default async function UserProfilePage() {
   const profile = await getProfile()

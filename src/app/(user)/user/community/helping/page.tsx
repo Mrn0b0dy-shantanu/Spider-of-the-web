@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
-export const metadata = { title: "Requests I'm Helping With | AntiQuake" }
+export const metadata = { title: "Requests I'm Helping With | FLARE" }
 
 export default async function HelpingPage() {
   const fulfillments = await getRequestsHelpingWith()

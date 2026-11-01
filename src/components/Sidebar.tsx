@@ -40,7 +40,7 @@ export function Sidebar() {
         <div className="flex items-center px-4 lg:px-6 border-b h-14 lg:h-[60px]">
           <Link href="/" className="flex items-center gap-2 font-semibold text-lg">
             <ShieldAlert className="w-6 h-6 text-destructive" />
-            <span>AntiQuake</span>
+            <span>FLARE</span>
           </Link>
         </div>
         <div className="flex-1">

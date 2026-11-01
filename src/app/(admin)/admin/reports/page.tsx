@@ -1,7 +1,7 @@
 import { getRequestsByStatus, getOperationalTrends } from "@/app/actions/admin"
 import AdminReportsClient from "./ReportsClient"
 
-export const metadata = { title: "Reports | AntiQuake Admin" }
+export const metadata = { title: "Reports | FLARE Admin" }
 
 export default async function AdminReportsPage() {
   const [

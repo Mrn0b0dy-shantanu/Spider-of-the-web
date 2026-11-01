@@ -3,7 +3,7 @@ import { CoordinatorRequestDetailClient } from "./CoordinatorRequestDetailClient
 import { notFound } from "next/navigation"
 
 export const metadata = {
-  title: "Request Details | Request Coordinator AntiQuake",
+  title: "Request Details | Request Coordinator FLARE",
 }
 
 export default async function CoordinatorRequestDetailPage({

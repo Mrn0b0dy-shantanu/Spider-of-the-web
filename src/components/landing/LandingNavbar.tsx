@@ -59,7 +59,7 @@ export default function LandingNavbar() {
                 <div className="absolute inset-0 bg-linear-to-t from-transparent to-white/10 rounded-lg" />
               </div>
               <span className="font-bold text-white text-lg tracking-tight">
-                Anti<span className="font-medium text-red-400">Quake</span>
+                FLARE
               </span>
             </Link>
 

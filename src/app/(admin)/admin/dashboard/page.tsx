@@ -13,7 +13,7 @@ import Link from "next/link"
 import { formatDate } from "@/lib/utils"
 import { RealtimeRefresh } from "@/components/shared/RealtimeRefresh"
 
-export const metadata = { title: "Command Center | AntiQuake Admin" }
+export const metadata = { title: "Command Center | FLARE Admin" }
 
 const urgencyColors: Record<string, string> = {
   critical: "bg-red-500/15 text-red-500 border-red-500/20",

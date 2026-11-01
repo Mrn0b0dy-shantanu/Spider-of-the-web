@@ -6,7 +6,7 @@ import {
 import { CoordinatorDashboardClient } from "./CoordinatorDashboardClient"
 
 export const metadata = {
-  title: "Dashboard | Request Coordinator AntiQuake",
+  title: "Dashboard | Request Coordinator FLARE",
 }
 
 export default async function CoordinatorDashboardPage() {

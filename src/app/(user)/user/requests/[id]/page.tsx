@@ -8,7 +8,7 @@ import { ArrowLeft, Clock, MapPin, User, Phone, Users, MessageSquare } from "luc
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
-export const metadata = { title: "Request Details | AntiQuake" }
+export const metadata = { title: "Request Details | FLARE" }
 
 const urgencyColors: Record<string, string> = {
   critical: "bg-red-500/15 text-red-500 border-red-500/20",

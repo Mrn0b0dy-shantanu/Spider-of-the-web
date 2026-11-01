@@ -3,7 +3,7 @@ import AdminIncidentsClient from "./IncidentsClient"
 import { fetchEarthquakes } from "@/lib/api/usgs"
 import { RealtimeRefresh } from "@/components/shared/RealtimeRefresh"
 
-export const metadata = { title: "Incidents | AntiQuake Admin" }
+export const metadata = { title: "Incidents | FLARE Admin" }
 
 export default async function AdminIncidentsPage() {
   const [supabaseIncidents, usgsData] = await Promise.all([

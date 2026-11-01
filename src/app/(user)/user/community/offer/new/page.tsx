@@ -4,7 +4,7 @@ import { ChevronLeft } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
-export const metadata = { title: "Share Help Resources | AntiQuake" }
+export const metadata = { title: "Share Help Resources | FLARE" }
 
 export default function NewOfferPage() {
   return (

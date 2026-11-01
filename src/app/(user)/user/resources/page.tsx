@@ -4,7 +4,7 @@ import { getShelters } from "@/app/actions/shelters"
 import { RealtimeRefresh } from "@/components/shared/RealtimeRefresh"
 import UserResourcesClient from "./UserResourcesClient"
 
-export const metadata = { title: "Emergency Resources & Shelters | AntiQuake" }
+export const metadata = { title: "Emergency Resources & Shelters | FLARE" }
 
 export default async function UserResourcesPage() {
   const [contacts, announcements, shelters] = await Promise.all([

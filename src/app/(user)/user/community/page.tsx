@@ -4,7 +4,7 @@ import { CommunityFeed } from "@/components/community/CommunityFeed"
 import { Users, ShieldAlert, Heart } from "lucide-react"
 import { Badge } from "@/components/ui/badge"
 
-export const metadata = { title: "Community Aid Network | AntiQuake" }
+export const metadata = { title: "Community Aid Network | FLARE" }
 
 export default async function CommunityAidPage() {
   const [initialRequests, initialOffers] = await Promise.all([

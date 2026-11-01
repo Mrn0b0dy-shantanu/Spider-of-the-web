@@ -1,7 +1,7 @@
 import { CoordinatorSettingsClient } from "./CoordinatorSettingsClient"
 
 export const metadata = {
-  title: "Settings | Request Coordinator AntiQuake",
+  title: "Settings | Request Coordinator FLARE",
 }
 
 export default function CoordinatorSettingsPage() {

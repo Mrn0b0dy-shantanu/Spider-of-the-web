@@ -120,7 +120,7 @@ export function WhySection() {
 
 const testimonials = [
   {
-    quote: "AntiQuake transformed how our district handles flood response. What used to take 6 hours now takes under 40 minutes.",
+    quote: "FLARE transformed how our district handles flood response. What used to take 6 hours now takes under 40 minutes.",
     author: "Col. Rahman K.",
     role: "District Emergency Director",
     org: "National Disaster Response Force",
@@ -227,7 +227,7 @@ export function CTASection() {
             </h2>
             <p className="mx-auto mb-8 max-w-xl text-zinc-400 text-lg">
               Join the network of disaster response teams, relief organizations,
-              and communities using AntiQuake to coordinate when it matters most.
+              and communities using FLARE to coordinate when it matters most.
             </p>
 
             <div className="flex sm:flex-row flex-col justify-center items-center gap-4">
@@ -295,7 +295,7 @@ export function LandingFooter() {
                 <ShieldCheck className="w-4 h-4 text-white" />
               </div>
               <span className="font-bold text-white text-base">
-                Anti<span className="font-medium text-red-400">Quake</span>
+                FLARE
               </span>
             </div>
             <p className="max-w-[200px] text-zinc-500 text-xs leading-relaxed">
@@ -323,7 +323,7 @@ export function LandingFooter() {
 
         <div className="flex sm:flex-row flex-col justify-between items-center gap-4 mt-12 pt-6 border-white/[0.06] border-t">
           <p className="text-zinc-600 text-xs">
-            © {new Date().getFullYear()} AntiQuake. All rights reserved.
+            © {new Date().getFullYear()} FLARE. All rights reserved.
           </p>
           <div className="flex items-center gap-1.5">
             <span className="bg-emerald-500 rounded-full w-2 h-2 animate-pulse" />

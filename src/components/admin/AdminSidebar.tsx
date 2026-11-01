@@ -38,7 +38,7 @@ export function AdminSidebar({ className }: { className?: string }) {
       <div className="flex items-center px-6 border-b h-16">
         <Link href="/admin/dashboard" className="flex items-center gap-2 font-bold text-primary text-xl tracking-tight">
           <ShieldAlert className="w-7 h-7 text-destructive" />
-          <span>AntiQuake</span>
+          <span>FLARE</span>
         </Link>
       </div>
 

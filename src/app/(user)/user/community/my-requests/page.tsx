@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 
-export const metadata = { title: "My Relief Requests | AntiQuake" }
+export const metadata = { title: "My Relief Requests | FLARE" }
 
 export default async function MyRequestsPage() {
   const requests = await getMyCommunityRequests()

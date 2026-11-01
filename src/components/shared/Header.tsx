@@ -36,7 +36,7 @@ export function Header({ user, sidebarTrigger }: HeaderProps) {
         {sidebarTrigger}
         <div className="md:hidden flex items-center gap-2">
           <ShieldAlert className="w-6 h-6 text-primary" />
-          <span className="font-bold text-lg tracking-tight">AntiQuake</span>
+          <span className="font-bold text-lg tracking-tight">FLARE</span>
         </div>
         <div className="hidden relative md:flex items-center">
           <Search className="top-2.5 left-2.5 absolute w-4 h-4 text-muted-foreground" />

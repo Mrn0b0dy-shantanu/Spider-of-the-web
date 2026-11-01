@@ -4,7 +4,7 @@ import { ChevronLeft } from "lucide-react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 
-export const metadata = { title: "Create Relief Request | AntiQuake" }
+export const metadata = { title: "Create Relief Request | FLARE" }
 
 export default function NewRequestPage() {
   return (
